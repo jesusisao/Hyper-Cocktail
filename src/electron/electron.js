@@ -1,11 +1,12 @@
-const {app, BrowserWindow, screen} = require('electron')
+const electron = require('electron')
+const { app, BrowserWindow } = electron
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
 function createWindow () {
-  const screenSize = Screen.getPrimaryDisplay().size
+  const screenSize = electron.screen.getPrimaryDisplay().size
 
   // Create the browser window.
   win = new BrowserWindow({width: screenSize.width, height: screenSize.height})
