@@ -1,0 +1,11 @@
+    .btns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .split-example{
+    height: 300px;
+    outline: 5px dashed #f9d676;
+    margin: 20px;
+    }
