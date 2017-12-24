@@ -1,8 +1,14 @@
-body {
-    background-color: blueviolet;
-}
-
-.split-example{
+/* .main-menu{
+    background-color: rgb(66, 88, 58);
+    display: block;
+    float: left;
     height: 98vh;
-    background-color: rgb(37, 37, 37);
+    width: 40px;
+} */
+
+.app-content{
+    background-color: rgb(58, 58, 58);
+    display: block;
+    height: 98vh;
+    width:100%;
 }
