@@ -6,23 +6,31 @@
 
   <div class="app-contents">
     <split direction="vertical" gutterSize="8" gutterColor="rgba(0,0,0,0)">
+      
       <!-- 上段 -->
       <split-area size="90" order="0">
         <split direction="horizontal" gutterSize="8" gutterColor="rgba(0,0,0,0)">
+          
           <!-- 左（アプリケーションのサブメニュー） -->
           <split-area size="15" order="11">
             <div class="submenu"></div>
           </split-area>
+          
           <!-- 右（メイン画面） -->
           <split-area size="85" order="12">
-            <div class="app-main"></div>
+            <div class="app-main">
+              <app-main></app-main>
+            </div>
           </split-area>
+
         </split>
       </split-area>
+
       <!-- 下段 -->
       <split-area size="10" order="1">
         <div class="bottom-area"></div>
       </split-area>
+
     </split>
   </div>
 
