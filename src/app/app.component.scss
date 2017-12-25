@@ -1,0 +1,50 @@
+.display-overall{
+    display: flex; /* こいつで.main-menuと.app-contentsを横並びにする */
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    width:100%;
+
+    .mainmenu{
+        background-color: rgb(110, 0, 68);
+        display: block;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 60px;
+    }
+
+    .app-contents{
+        background-color: rgb(19, 19, 19);
+        display: block;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width:100%;
+
+        .submenu{
+            background-color: rgb(36, 36, 36);
+            height: 100%;
+            width:100%;
+        }
+
+        .app-main{
+            background-color: rgb(22, 22, 22);
+            height: 100%;
+            width:100%;
+        }
+
+        .bottom-area{
+            background-color: rgb(29, 29, 29);
+            height: 100%;
+            width:100%;
+        }
+    }
+}
+
+
+
+
+
+
+
