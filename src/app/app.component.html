@@ -2,6 +2,11 @@
 <div class="display-overall">
 
   <div class="mainmenu">
+    <ul>
+      <li *ngFor="let mainmenu of mainmenues" class="mainmenu-button">
+        {{mainmenu.name}}
+      </li>
+    </ul>
   </div>
 
   <div class="app-contents">
