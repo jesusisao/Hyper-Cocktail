@@ -1,0 +1,23 @@
+/* Structure */
+.example-container {
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 300px;
+  width: 100%;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+}
