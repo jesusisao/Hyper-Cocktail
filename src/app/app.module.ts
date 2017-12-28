@@ -9,7 +9,7 @@ import { AngularSplitModule } from 'angular-split';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatSortModule } from '@angular/material';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { MatInputModule } from '@angular/material';
     AngularSplitModule,
     MatFormFieldModule,
     MatTableModule,
-    MatInputModule
+    MatInputModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
