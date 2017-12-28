@@ -1,23 +1,51 @@
 /* Structure */
-.example-container {
-  background-color: #FFF;
+:host {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: center;
+  padding: 16px;
+}
+
+.tabletest-container {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  padding: 16px;
   min-width: 300px;
-  width: 100%;
+  width: 95%;
+
+  .tabletest-header {
+    min-height: 64px;
+
+    .mat-form-field {
+      font-size: 18px;
+      width: 100%;
+ 
+      input {
+        color: rgb(200,200,200) //input text color
+      }
+    }
+  }
+  
+  .mat-table {
+    overflow: auto;
+    
+    .mat-header-row{
+      background-color: rgb(40, 40, 40);//background of table header
+      border-bottom-width: 3px;
+      border-color: rgba(160, 160, 160, 0.5)
+    }
+
+    .mat-row{
+      background-color: rgb(40,40,40);//background of table
+    }
+  }
 }
 
-.example-header {
-  min-height: 64px;
-  padding: 8px 24px 0;
-}
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
 
-.mat-table {
-  overflow: auto;
-}
+
+
+
+
