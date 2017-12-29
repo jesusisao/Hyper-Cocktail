@@ -1,6 +1,7 @@
 /* Structure */
 :host {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,15 +17,21 @@
   width: 95%;
 
   .tabletest-header {
-    min-height: 64px;
 
     .mat-form-field {
       font-size: 18px;
-      width: 100%;
  
       input {
         color: rgb(200,200,200) //input text color
       }
+    }
+
+    .full-form-field{
+      width: 100%;
+    }
+  
+    .half-form-field{
+      width: 50%;
     }
   }
   

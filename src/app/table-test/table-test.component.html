@@ -1,7 +1,13 @@
 <div class="tabletest-container mat-elevation-z8">
   <div class="tabletest-header">
-    <mat-form-field>
+    <mat-form-field class="full-form-field">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <mat-form-field class="half-form-field">
+      <input matInput #rangeStart (keyup)="setRangeStart(rangeStart.value)" placeholder="range start">
+    </mat-form-field>
+    <mat-form-field class="half-form-field">
+      <input matInput #rangeEnd (keyup)="setRangeEnd(rangeEnd.value)" placeholder="range end">
     </mat-form-field>
   </div>
   <mat-table [dataSource]="dataSource" matSort>
