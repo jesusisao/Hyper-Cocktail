@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppMainComponent } from './app-main/app-main.component';
-import { TableTestComponent } from './table-test/table-test.component';
+import { MatTableTestComponent } from './mat-table-test/mat-table-test.component';
 
 import { AngularSplitModule } from 'angular-split';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +16,7 @@ import { MatInputModule, MatSortModule } from '@angular/material';
   declarations: [
     AppComponent,
     AppMainComponent,
-    TableTestComponent
+    MatTableTestComponent
   ],
   imports: [
     BrowserModule,

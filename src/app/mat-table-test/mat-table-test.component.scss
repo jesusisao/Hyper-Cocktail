@@ -29,23 +29,20 @@
     .full-form-field{
       width: 100%;
     }
-  
-    .half-form-field{
-      width: 50%;
-    }
   }
   
   .mat-table {
+    background-color:rgba(0,0,0,0);
     overflow: auto;
     
     .mat-header-row{
-      background-color: rgb(40, 40, 40);//background of table header
+      background-color: rgba(0, 0, 0, 0.1);//background-color of table header
       border-bottom-width: 3px;
       border-color: rgba(160, 160, 160, 0.5)
     }
 
     .mat-row{
-      background-color: rgb(40,40,40);//background of table
+      background-color: rgba(0, 0, 0, 0.1);//background-color of table
     }
   }
 }

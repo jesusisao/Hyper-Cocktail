@@ -2,18 +2,16 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
-  selector: 'app-table-test',
-  templateUrl: './table-test.component.html',
-  styleUrls: ['./table-test.component.scss']
+  selector: 'mat-table-test',
+  templateUrl: './mat-table-test.component.html',
+  styleUrls: ['./mat-table-test.component.scss']
 })
-export class TableTestComponent {
+export class MatTableTestComponent {
 
   constructor() { }
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  rangeStart: number = -999999;
-  rangeEnd: number = 999999;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -25,35 +23,7 @@ export class TableTestComponent {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
-    console.log(this.dataSource);
   }
-
-  //+をつけることでnumberにキャスト
-  setRangeStart(str: string) {
-    this.rangeStart = +str;
-    this.userDefineRangeFilter();
-  }
-
-  setRangeEnd(str: string) {
-    this.rangeEnd = +str;
-    this.userDefineRangeFilter();
-  }
-
-  //this.dataSource.data配列(中身は各レコードのオブジェクト)から
-  //取り出して範囲に一致する場合はそのレコードをfilteredDataに突っ込む
-  userDefineRangeFilter() {
-    console.log(this.dataSource);
-    const nowLength: number = this.dataSource.data.length;
-    let recordObjects: any[];
-    for (let i = 0; i++; i < nowLength) {
-      let recordObject = this.dataSource.data[i];
-      let isInRange: boolean = (recordObject.weight > this.rangeStart) && (recordObject.weight < this.rangeEnd)
-      if (isInRange) {
-        recordObjects.push(recordObject);
-      };
-    };
-    this.dataSource.filteredData = recordObjects;
-  };
 };
 
 export interface Element {
