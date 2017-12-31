@@ -1,66 +1,63 @@
-.display-overall{
+:host{
     display: flex; /* こいつで.main-menuと.app-contentsを横並びにする */
     height: 100vh;
     margin: 0;
     padding: 0;
     width:100%;
+}
 
-    .mainmenu{
-        background-color: rgb(110, 0, 68);
-        display: block;
-        height: 100%;
-        margin: 0;
+.mainmenu{
+    background-color: rgb(25, 25, 25);
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 60px;
+
+    ul{
+        list-style:none;
+        margin:0;
         padding: 0;
-        width: 60px;
 
-        ul{
-            list-style:none;
+        li{
+            align-items: center;
+            color:rgb(204, 204, 204);
+            display: flex;
+            height: 60px;
+            justify-content: center;
             margin:0;
             padding: 0;
-
-            li{
-                align-items: center;
-                display: flex;
-                height: 60px;
-                justify-content: center;
-                margin:0;
-                padding: 0;
-                width: 60px;
-            }
-        }
-    }
-
-    .app-contents{
-        background-color: rgb(15, 15, 15);
-        display: block;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        width:100%;
-
-        .submenu{
-            background-color: rgb(48, 48, 48);
-            min-height: 100%;
-            min-width:100%;
-        }
-
-        .app-main{
-            background-color: rgb(39, 39, 39);
-            min-height: 100%;
-            min-width:100%;
-        }
-
-        .bottom-area{
-            background-color: rgb(29, 29, 29);
-            height: 100%;
-            width:100%;
+            width: 60px;
         }
     }
 }
+.app-contents{
+    background-color: rgb(30, 30, 30);
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width:100%;
 
-
-
-
-
-
-
+    .submenu{
+        background-color: rgb(48, 48, 48);
+        min-height: 100%;
+        min-width:100%;
+    }
+    .app-main{
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100%;
+        min-width:100%;
+        padding: 16px;
+    }
+    .bottom-area{
+        background-color: rgb(20, 20, 20);
+        height: 100%;
+        width:100%;
+    }
+}

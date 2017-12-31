@@ -10,4 +10,7 @@ import { MAINMENUES } from './mainmenues';
 
 export class AppComponent {
   mainmenues: Mainmenu[] = MAINMENUES;
+
+  constructor() {}
+
 }

@@ -1,46 +1,37 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="display-overall">
 
-  <div class="mainmenu">
-    <ul>
-      <li *ngFor="let mainmenu of mainmenues" class="mainmenu-button">
-        {{mainmenu.name}}
-      </li>
-    </ul>
-  </div>
+<div class="mainmenu">
+  <ul>
+    <li *ngFor="let mainmenu of mainmenues" class="mainmenu-button" [style.background]="mainmenu.color">
+      <i class="material-icons">{{mainmenu.icon}}</i>
+    </li>
+  </ul>
+</div>
 
-  <!-- ―――――――――――――――――――――――――――――――――――― -->
+<!-- ―――――――――――――――――――――――――――――――――――― -->
 
-  <div class="app-contents">
-    <split direction="vertical" gutterSize="8" gutterColor="rgba(0,0,0,0)">
-
-      <!-- 上段 -->
-      <split-area size="90" order="0">
-        <split direction="horizontal" gutterSize="8" gutterColor="rgba(0,0,0,0)">
-
-          <!-- 左（アプリケーションのサブメニュー） -->
-          <split-area size="15" order="11">
-            <div class="submenu"></div>
-          </split-area>
-
-          <!-- 右（メイン画面） -->
-          <split-area size="85" order="12">
-            <div class="app-main">
-              <mat-table-test></mat-table-test>
-            </div>
-          </split-area>
-
-        </split>
-      </split-area>
-
-      <!-- ―――――――――――――――――――――――――――――――――――― -->
-
-      <!-- 下段 -->
-      <split-area size="10" order="1">
-        <div class="bottom-area"></div>
-      </split-area>
-
-    </split>
-  </div>
-
+<div class="app-contents">
+  <split direction="vertical" gutterSize="8" gutterColor="rgba(0,0,0,0)">
+    <!-- 上段 -->
+    <split-area size="90" order="0">
+      <split direction="horizontal" gutterSize="8" gutterColor="rgba(0,0,0,0)">
+        <!-- 左（アプリケーションのサブメニュー） -->
+        <split-area size="15" order="11">
+          <div class="submenu"></div>
+        </split-area>
+        <!-- 右（メイン画面） -->
+        <split-area size="85" order="12">
+          <div class="app-main">
+            <!-- <app-file-generator></app-file-generator> -->
+            <mat-table-test></mat-table-test>
+          </div>
+        </split-area>
+      </split>
+    </split-area>
+    <!-- ―――――――――――――――――――――――――――――――――――― -->
+    <!-- 下段 -->
+    <split-area size="10" order="1">
+      <div class="bottom-area"></div>
+    </split-area>
+  </split>
 </div>

@@ -6,6 +6,7 @@ import { MatTableDataSource, MatSort } from '@angular/material';
   templateUrl: './mat-table-test.component.html',
   styleUrls: ['./mat-table-test.component.scss']
 })
+
 export class MatTableTestComponent {
 
   constructor() { }
@@ -24,6 +25,8 @@ export class MatTableTestComponent {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  
 };
 
 export interface Element {
