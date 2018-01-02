@@ -1,5 +1,5 @@
 :host {
-    display: flex;//こいつで.main-menuと.app-contentsを横並びにする
+    display: flex; //こいつで.main-menuと.app-contentsを横並びにする
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -20,25 +20,30 @@
         width: 100%;
         li {
             //メインメニューの各ボタン
-            align-items: center;
             box-sizing: border-box;
             box-shadow: 0px 5px 14px -2px #000000;
-            color: rgb(204, 204, 204);
-            display: flex;
             height: 60px;
-            justify-content: center;
             margin: 8px 8px 8px 8px;
             padding: 0;
             border-radius: 3px;
-            transition: height, 0.3s ease-in-out;
+            transition: height, 0.2s ease-in-out;
             &:hover {
                 text-shadow: 0px 0px 3px #e8e8e8;
                 height: 80px;
             }
-            .material-icons {
-                transition: transform 0.6s ease-in-out;
-                &:hover {
-                    transform: rotateY(360deg);
+            a {
+                align-items: center;
+                color: rgb(204, 204, 204);
+                display: flex;
+                height: 100%;
+                justify-content: center;
+                text-decoration: none; //リンクの下線消す
+                width: 100%;
+                .material-icons {
+                    transition: transform 0.6s ease-in-out;
+                    &:hover {
+                        transform: rotateY(360deg);
+                    }
                 }
             }
         }

@@ -3,7 +3,9 @@
 <div class="mainmenu">
   <ul>
     <li *ngFor="let mainmenu of mainmenues" class="mainmenu-button" [style.background]="mainmenu.color">
-      <i class="material-icons">{{mainmenu.icon}}</i>
+      <a [routerLink]="mainmenu.route">
+        <i class="material-icons">{{mainmenu.icon}}</i>
+      </a>
     </li>
   </ul>
 </div>
@@ -18,7 +20,9 @@
         <!-- 左（アプリケーションのサブメニュー） -->
         <split-area size="15" order="11">
           <div class="submenu">
-            <app-submenu-table-test></app-submenu-table-test>
+            <router-outlet></router-outlet>
+            <!-- <app-submenu-table-test></app-submenu-table-test> -->
+            <!-- <app-submenu-file-generator></app-submenu-file-generator> -->
           </div>
         </split-area>
         <!-- 右（メイン画面） -->
