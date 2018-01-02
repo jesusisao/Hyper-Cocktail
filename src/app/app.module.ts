@@ -6,6 +6,7 @@ import { AppMainComponent } from './app-main/app-main.component';
 import { FileGeneratorComponent } from './file-generator/file-generator.component';
 import { MatTableTestComponent } from './mat-table-test/mat-table-test.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { SubmenuTableTestComponent } from './submenu-table-test/submenu-table-test.component';
 
 import { AngularSplitModule } from 'angular-split';
 import { DomSanitizer } from '@angular/platform-browser/';
@@ -25,7 +26,8 @@ import {
     AppMainComponent,
     MatTableTestComponent,
     FileGeneratorComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    SubmenuTableTestComponent
   ],
   imports: [
     AngularSplitModule,

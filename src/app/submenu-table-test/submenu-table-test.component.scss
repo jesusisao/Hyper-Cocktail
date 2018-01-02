@@ -1,0 +1,23 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+        align-items: center;
+        color: rgb(204, 204, 204);
+        display: flex;
+        height: 28px;
+        margin: 0 0 0 6px;
+        padding: 0;
+        min-width: 200px;
+        .material-icons {
+            font-size: 8px; //iconの大きさ
+        }
+        p {
+            margin: 0 0 0 6px;
+            &:hover {
+                text-shadow: 0px 0px 3px #e8e8e8;
+            }
+        }
+    }
+}
