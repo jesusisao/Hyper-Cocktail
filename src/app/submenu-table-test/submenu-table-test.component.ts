@@ -31,5 +31,5 @@ export const SUBMENUES: Submenu[] = [
   { id: 102, name: 'test2', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 12 },
   { id: 103, name: 'test3', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 13 },
   { id: 104, name: 'test4', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 14 }
-]
+];
 
