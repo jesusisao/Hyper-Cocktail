@@ -9,12 +9,12 @@ import { MatTableTestComponent } from './mat-table-test/mat-table-test.component
 
 //メインメニューアイコンを押したときにサブメニューを書き換える
 const myRoutes = [
-    { path: '', component: SubmenuFileGeneratorComponent },
+    { path: '', component: SubmenuTableTestComponent },
     { path: 'table-test', component: SubmenuTableTestComponent },
-    { path: 'table-test/mat-table-test', component: MatTableTestComponent, outlet: 'content-main' },
-    { path: 'table-test/**', component: ErrorComponent, outlet: 'content-main' },
     { path: 'file-generator', component: SubmenuFileGeneratorComponent },
     { path: '**', component: ErrorComponent },
+    { path: 'table-test/mat-table-test', component: MatTableTestComponent, outlet: 'contentmain' },
+    { path: '**', component: ErrorComponent, outlet: 'contentmain' },
 ]
 
 export const MY_ROUTES: ModuleWithProviders = RouterModule.forRoot(myRoutes);

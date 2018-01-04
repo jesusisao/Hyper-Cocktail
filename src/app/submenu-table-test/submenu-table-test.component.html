@@ -1,7 +1,7 @@
 <ul>
-  <li *ngFor="let submenu of submenues" class="submenu-button">
+  <li *ngFor="let submenu of submenues" class="submenu-button" (click)="onclick(submenu.route)">
     <a>
-      <i class="material-icons">radio_button_unchecked</i>
+      <i class="material-icons">radio_button_unchecked</i><!--ただのアイコン -->
       <p>{{submenu.name}}</p>
     </a>
   </li>

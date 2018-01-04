@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { SubmenuService } from './submenu.service';
+
 import { Mainmenu } from './mainmenu';
 import { MAINMENUES } from './mainmenues';
 
@@ -11,6 +15,13 @@ import { MAINMENUES } from './mainmenues';
 export class AppComponent {
   mainmenues: Mainmenu[] = MAINMENUES;
 
-  constructor() {}
+  constructor(private submenuService: SubmenuService, private router: Router) {
+    submenuService.clickedSubmenu$.subscribe(
+      submenuRoute => {
+        //route-outletで読み込む
+        this.router.navigate([{ outlets: { contentmain: submenuRoute } }]);
+      }
+    )
+  }
 
 }

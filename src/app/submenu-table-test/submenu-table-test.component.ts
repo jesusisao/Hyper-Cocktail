@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { SubmenuService } from '../submenu.service';
 
 @Component({
   selector: 'app-submenu-table-test',
@@ -9,13 +10,10 @@ export class SubmenuTableTestComponent {
 
   submenues: Submenu[] = SUBMENUES;
 
-  //親コンポーネントのrouter-outletで遷移させるために
-  //パスを送り込む
-  //ダメ。サービスに切り替える
-  @Output() clickSubmenu = new EventEmitter<String>();
+  constructor(private submenuService: SubmenuService) { }
 
   onclick(routeOfSubmenu: string) {
-    this.clickSubmenu.emit(routeOfSubmenu);
+    this.submenuService.sendSubmenuRoute(routeOfSubmenu);
   }
 }
 
@@ -28,7 +26,7 @@ export interface Submenu {
 }
 
 export const SUBMENUES: Submenu[] = [
-  { id: 100, name: 'Mat Table Test', route: '/table-test/mat-table-test', description: 'テスト説明文', sortNum: 10 },
+  { id: 100, name: 'Mat Table Test', route: 'table-test/mat-table-test', description: 'テスト説明文', sortNum: 10 },
   { id: 101, name: 'test1', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 11 },
   { id: 102, name: 'test2', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 12 },
   { id: 103, name: 'test3', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 13 },
