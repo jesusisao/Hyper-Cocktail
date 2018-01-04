@@ -7,7 +7,7 @@ import { SubmenuFileGeneratorComponent } from './submenu-file-generator/submenu-
 
 import { MatTableTestComponent } from './mat-table-test/mat-table-test.component';
 
-//メインメニューアイコンを押したときにサブメニューを書き換える
+// メインメニューアイコンを押したときにサブメニューを書き換える
 const myRoutes = [
     { path: '', component: SubmenuTableTestComponent },
     { path: 'table-test', component: SubmenuTableTestComponent },
@@ -15,6 +15,6 @@ const myRoutes = [
     { path: '**', component: ErrorComponent },
     { path: 'table-test/mat-table-test', component: MatTableTestComponent, outlet: 'contentmain' },
     { path: '**', component: ErrorComponent, outlet: 'contentmain' },
-]
+];
 
 export const MY_ROUTES: ModuleWithProviders = RouterModule.forRoot(myRoutes);
