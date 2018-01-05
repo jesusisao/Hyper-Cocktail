@@ -1,7 +1,66 @@
 :host {
+    position: relative;
     width: 100%;
 }
 
+$textcolor:#bbb;
+$bordercolor:rgba(255,255,255,0.15);
 .table-wrapper {
-    color: white;
+    color: $textcolor;
+    overflow-x: auto;
+    position: absolute;
+    width: 100%;
+    table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        min-width: 100%;
+        tr {
+            border-bottom: 1px $bordercolor solid;
+            height: 40px;
+            &.header {
+                background-color: rgba(0, 0, 0, 0.335);
+                border-bottom: 3pxrgba(255, 255, 255, 0.062);
+            }
+            &:nth-child(even) {
+                // 偶数行
+                background-color: rgba(0, 203, 253, 0.062);
+            }
+            th {
+                font-weight: normal;
+                padding: 5px;
+                white-space: nowrap;
+                &:nth-child(odd) {
+                    // 奇数列
+                    background-color: rgba(0, 0, 0, 0.1);
+                }
+            }
+            td {
+                white-space: nowrap;
+                &:nth-child(odd) {
+                    // 奇数列
+                    background-color: rgba(0, 0, 0, 0.1)
+                }
+                input {
+                    background-color: rgba(255, 255, 255, 0);
+                    border: 2px solid rgba(255, 255, 255, 0); // focus時に位置がずれるのを防ぐため
+                    box-sizing: border-box;
+                    color: $textcolor;
+                    display: inline-block;
+                    height: 40px;
+                    overflow: hidden;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    transition: background-color 0.1s linear;
+                    width: 100%;
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.2);
+                    }
+                    &:focus {
+                        border: 2px solid #ff9900;
+                        outline: 0;
+                    }
+                }
+            }
+        }
+    }
 }
