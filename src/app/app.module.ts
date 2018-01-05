@@ -14,8 +14,8 @@ import {
   MatTableModule,
 } from '@angular/material';
 
-//サービス
-import { SubmenuService } from './submenu.service'
+// サービス
+import { SubmenuService } from './submenu.service';
 
 import { AppComponent } from './app.component';
 import { AppMainComponent } from './app-main/app-main.component';
@@ -25,6 +25,7 @@ import { MatTableTestComponent } from './mat-table-test/mat-table-test.component
 import { SubmenuTableTestComponent } from './submenu-table-test/submenu-table-test.component';
 import { SubmenuFileGeneratorComponent } from './submenu-file-generator/submenu-file-generator.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { InputScreenOfDetailsComponent } from './input-screen-of-details/input-screen-of-details.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
     WelcomePageComponent,
     SubmenuTableTestComponent,
     SubmenuFileGeneratorComponent,
-    ErrorComponent
+    ErrorComponent,
+    InputScreenOfDetailsComponent
   ],
   imports: [
     AngularSplitModule,

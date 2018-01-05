@@ -6,6 +6,7 @@ import { SubmenuTableTestComponent } from './submenu-table-test/submenu-table-te
 import { SubmenuFileGeneratorComponent } from './submenu-file-generator/submenu-file-generator.component';
 
 import { MatTableTestComponent } from './mat-table-test/mat-table-test.component';
+import { InputScreenOfDetailsComponent } from './input-screen-of-details/input-screen-of-details.component';
 
 // メインメニューアイコンを押したときにサブメニューを書き換える
 const myRoutes = [
@@ -13,8 +14,10 @@ const myRoutes = [
     { path: 'table-test', component: SubmenuTableTestComponent },
     { path: 'file-generator', component: SubmenuFileGeneratorComponent },
     { path: '**', component: ErrorComponent },
+
     { path: 'table-test/mat-table-test', component: MatTableTestComponent, outlet: 'contentmain' },
+    { path: 'table-test/input-screen-of-details', component: InputScreenOfDetailsComponent, outlet: 'contentmain' },
     { path: '**', component: ErrorComponent, outlet: 'contentmain' },
 ];
 
-export const MY_ROUTES: ModuleWithProviders = RouterModule.forRoot(myRoutes);
+export const MY_ROUTES: ModuleWithProviders = RouterModule.forRoot(myRoutes, { useHash: true }); // useHashtrueにしないと更新時に読み込めなくなる
