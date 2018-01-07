@@ -6,21 +6,23 @@
       <th>金額</th>
       <th>特急料金</th>
     </tr>
-    
-    <tr>
-      <td>
-        <input type=text>
-      </td>
-      <td>
-        <input type=text>
-      </td>
-      <td>
-        <input type=text>
-      </td>
-      <td>
-        <input type=text>
-      </td>
-    </tr>
+
+    <ng-container *ngFor="let number of [0,1,2,3,4]">
+      <tr>
+        <td>
+          <input type=text>
+        </td>
+        <td>
+          <input type=text>
+        </td>
+        <td>
+          <input type=text>
+        </td>
+        <td>
+          <input type=text>
+        </td>
+      </tr>
+    </ng-container>
 
   </table>
 </div>

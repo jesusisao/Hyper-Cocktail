@@ -18,10 +18,10 @@ export class AppComponent {
   constructor(private submenuService: SubmenuService, private router: Router) {
     submenuService.clickedSubmenu$.subscribe(
       submenuRoute => {
-        //route-outletで読み込む
+        // route-outletで読み込む
         this.router.navigate([{ outlets: { contentmain: submenuRoute } }]);
       }
-    )
+    );
   }
 
 }

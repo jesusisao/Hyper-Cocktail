@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FileGeneratorComponent } from '../file-generator/file-generator.component';
 
 @Component({
   selector: 'app-submenu-file-generator',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubmenuFileGeneratorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.router.navigate([{ outlets: { contentmain: 'file-generator/main' } }]);
   }
 
 }
