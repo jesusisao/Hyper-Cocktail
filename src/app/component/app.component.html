@@ -10,23 +10,21 @@
 
 <!-- ―――――――――――――――――――――――――――――――――――― -->
 
-<div class="app-contents">
+<div class="without-mainmenu">
   <split direction="vertical" gutterSize="8" gutterColor="rgba(0,0,0,0)" gutterImageV="url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAASElEQVQ4y2NgGAWDGPxv+N9AmnIQaCBF+R8gJE4LWPnv/2H/w4nSAlMOZhPWAlUeCucT0gLU8Pt/CIoISEsdPju0CIuMgsEAAKEwSaIZoavCAAAAAElFTkSuQmCC')">
     <!-- 上段 -->
     <split-area size="90" order="0">
       <split direction="horizontal" gutterSize="8" gutterColor="rgba(0,0,0,0)" gutterImageH="url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOElEQVQ4y2NgGAVkgf+N/xtIUa77/8///6RpiSBdSyTpWqJI1xJNohYSNQwu5WREXANJykcBFgAAq5NJ0HtMSkcAAAAASUVORK5CYII=')">
         <!-- 左（アプリケーションのサブメニュー） -->
         <split-area size="15" order="11">
-          <div class="submenu">
+          <div class="submenu-wrapper">
             <router-outlet></router-outlet>
           </div>
         </split-area>
         <!-- 右（メイン画面） -->
         <split-area size="85" order="12">
-          <div class="content-main">
-            <router-outlet name="contentmain"></router-outlet>
-            <!-- <app-file-generator></app-file-generator> -->
-            <!-- <mat-table-test></mat-table-test> -->
+          <div class="main-content-wrapper">
+            <router-outlet name="maincontent"></router-outlet>
           </div>
         </split-area>
       </split>

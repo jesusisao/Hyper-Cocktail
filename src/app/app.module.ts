@@ -14,24 +14,20 @@ import {
   MatTableModule,
 } from '@angular/material';
 
-// サービス
-import { SubmenuService } from './submenu.service';
 
-import { AppComponent } from './app.component';
-import { AppMainComponent } from './app-main/app-main.component';
-import { ErrorComponent } from './error/error.component';
-import { FileGeneratorComponent } from './file-generator/file-generator.component';
-import { MatTableTestComponent } from './mat-table-test/mat-table-test.component';
-import { SubmenuTableTestComponent } from './submenu-table-test/submenu-table-test.component';
-import { SubmenuFileGeneratorComponent } from './submenu-file-generator/submenu-file-generator.component';
-import { WelcomePageComponent } from './welcome-page/welcome-page.component';
-import { InputScreenOfDetailsComponent } from './input-screen-of-details/input-screen-of-details.component';
+import { AppComponent } from './component/app.component';
+import { ErrorComponent } from './component/error/error.component';
+import { FileGeneratorComponent } from './component/maincontent/file-generator-main/file-generator.component';
+import { InputScreenOfDetailsComponent } from './component/maincontent/table-test-main/input-screen-of-details/input-screen-of-details.component';
+import { MatTableTestComponent } from './component/maincontent/table-test-main/mat-table-test/mat-table-test.component';
+import { SubmenuTableTestComponent } from './component/submenu/submenu-table-test/submenu-table-test.component';
+import { SubmenuFileGeneratorComponent } from './component/submenu/submenu-file-generator/submenu-file-generator.component';
+import { WelcomePageComponent } from './component/maincontent/welcome-page/welcome-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppMainComponent,
     MatTableTestComponent,
     FileGeneratorComponent,
     WelcomePageComponent,
@@ -50,7 +46,7 @@ import { InputScreenOfDetailsComponent } from './input-screen-of-details/input-s
     MatSortModule,
     MY_ROUTES,
   ],
-  providers: [SubmenuService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
