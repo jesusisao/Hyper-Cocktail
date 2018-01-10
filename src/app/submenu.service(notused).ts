@@ -6,10 +6,10 @@ export class SubmenuService {
 
   private clickedSubmenuSource = new Subject<string>();
 
-  //こいつを外からsubscribeする
+  // こいつを外からsubscribeする
   clickedSubmenu$ = this.clickedSubmenuSource.asObservable();
-  
-  //外からObservableにデータを流し込む
+
+  // 外からObservableにデータを流し込む
   sendSubmenuRoute(submenuRoute: string) {
     this.clickedSubmenuSource.next(submenuRoute);
   }
