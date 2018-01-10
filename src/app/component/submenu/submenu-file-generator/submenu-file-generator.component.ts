@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FileGeneratorComponent } from '../file-generator/file-generator.component';
+import { FileGeneratorComponent } from '../../../component/maincontent/file-generator-main/file-generator.component';
 
 @Component({
   selector: 'app-submenu-file-generator',

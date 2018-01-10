@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SubmenuService } from '../submenu.service';
 
 @Component({
   selector: 'app-submenu-table-test',
@@ -11,11 +10,9 @@ export class SubmenuTableTestComponent implements OnInit {
 
   submenues: Submenu[] = SUBMENUES;
 
-  constructor(private submenuService: SubmenuService, private router: Router) { }
+  constructor(private router: Router) { }
 
   onclick(routeOfSubmenu: string) {
-    // サービスいらんかったやん……
-    // this.submenuService.sendSubmenuRoute(routeOfSubmenu);
     this.router.navigate([{ outlets: { contentmain: routeOfSubmenu } }]);
   }
 

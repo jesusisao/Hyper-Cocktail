@@ -2,12 +2,12 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
-  selector: 'mat-table-test',
+  selector: 'app-mat-table-test',
   templateUrl: './mat-table-test.component.html',
   styleUrls: ['./mat-table-test.component.scss']
 })
 
-export class MatTableTestComponent {
+export class MatTableTestComponent implements AfterViewInit {
 
   constructor() { }
 
@@ -26,8 +26,7 @@ export class MatTableTestComponent {
     this.dataSource.filter = filterValue;
   }
 
-  
-};
+}
 
 export interface Element {
   name: string;
