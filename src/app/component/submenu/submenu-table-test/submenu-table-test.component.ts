@@ -13,12 +13,12 @@ export class SubmenuTableTestComponent implements OnInit {
   constructor(private router: Router) { }
 
   onclick(routeOfSubmenu: string) {
-    this.router.navigate([{ outlets: { contentmain: routeOfSubmenu } }]);
+    this.router.navigate([{ outlets: { maincontent: routeOfSubmenu } }]);
   }
 
   ngOnInit() {
     // コンテンツの初期表示
-    this.router.navigate([{ outlets: { contentmain: 'table-test/mat-table-test' } }]);
+    this.router.navigate([{ outlets: { maincontent: 'table-test/mat-table-test' } }]);
   }
 }
 

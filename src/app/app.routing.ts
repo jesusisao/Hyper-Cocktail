@@ -22,14 +22,14 @@ const myRoutes = [
     },
 
     { path: 'table-test', component: SubmenuTableTestComponent },
-    { path: 'table-test/mat-table-test', component: MatTableTestComponent, outlet: 'contentmain' },
-    { path: 'table-test/input-screen-of-details', component: InputScreenOfDetailsComponent, outlet: 'contentmain' },
+    { path: 'table-test/mat-table-test', component: MatTableTestComponent, outlet: 'maincontent' },
+    { path: 'table-test/input-screen-of-details', component: InputScreenOfDetailsComponent, outlet: 'maincontent' },
 
     { path: 'file-generator', component: SubmenuFileGeneratorComponent },
-    { path: 'file-generator/main', component: FileGeneratorComponent, outlet: 'contentmain' },
+    { path: 'file-generator/main', component: FileGeneratorComponent, outlet: 'maincontent' },
 
     { path: '**', component: ErrorComponent },
-    { path: '**', component: ErrorComponent, outlet: 'contentmain' },
+    { path: '**', component: ErrorComponent, outlet: 'maincontent' },
 
 ];
 

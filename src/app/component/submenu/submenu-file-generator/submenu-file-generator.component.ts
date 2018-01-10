@@ -12,7 +12,7 @@ export class SubmenuFileGeneratorComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.router.navigate([{ outlets: { contentmain: 'file-generator/main' } }]);
+    this.router.navigate([{ outlets: { maincontent: 'file-generator/main' } }]);
   }
 
 }
