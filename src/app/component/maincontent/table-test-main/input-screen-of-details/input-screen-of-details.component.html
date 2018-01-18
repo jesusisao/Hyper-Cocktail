@@ -1,30 +1,41 @@
-<div class="table-wrapper-2">
-  <div class="table-wrapper">
-    <table>
-      <tr class='header'>
-        <th>行番号</th>
-        <th>摘要</th>
-        <th>金額</th>
-        <th>特急料金</th>
-      </tr>
-
-      <ng-container *ngFor="let number of [0,1,2,3]">
-        <tr>
-          <td>
-            <input type=text>
-          </td>
-          <td>
-            <input type=text>
-          </td>
-          <td>
-            <input type=text>
-          </td>
-          <td>
-            <input type=text>
-          </td>
+<div class="table-wrapper-3">
+  <label for="inputDetails">テーブルの説明</label>
+  <div id="inputDetails" class="table-wrapper-2">
+    <div class="table-wrapper">
+      <table>
+        <tr class="header">
+          <th>行番号</th>
+          <th>摘要</th>
+          <th>金額</th>
+          <th>特急料金</th>
+          <th>備考</th>
         </tr>
-      </ng-container>
 
-    </table>
+        <ng-container *ngFor="let number of [0,0,0,0,0,0,0,0,0]">
+          <tr>
+            <td>
+              <input type=text>
+            </td>
+            <td>
+              <input type=text>
+            </td>
+            <td>
+              <input type=text>
+            </td>
+            <td>
+              <input type=text>
+            </td>
+            <td>
+              <input type=text>
+            </td>
+          </tr>
+        </ng-container>
+
+      </table>
+    </div>
+  </div>
+  <div class="bottom-buttons">
+    <i class="material-icons">add_circle</i>
+    <i class="material-icons">remove_circle</i>
   </div>
 </div>
