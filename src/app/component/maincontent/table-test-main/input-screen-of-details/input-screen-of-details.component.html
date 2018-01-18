@@ -11,7 +11,7 @@
           <th>備考</th>
         </tr>
 
-        <ng-container *ngFor="let number of [0,0,0,0,0,0,0,0,0]">
+        <ng-container *ngFor="let row of rows">
           <tr>
             <td>
               <input type=text>
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="bottom-buttons">
-    <i class="material-icons">add_circle</i>
-    <i class="material-icons">remove_circle</i>
+    <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
+    <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
   </div>
 </div>
