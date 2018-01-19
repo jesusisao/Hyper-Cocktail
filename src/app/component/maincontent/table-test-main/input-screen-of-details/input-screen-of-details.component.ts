@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class InputScreenOfDetailsComponent implements OnInit {
 
   rows: number[] = [0, 0, 0, 0, 0];
+  rowindex: number;
 
   constructor() { }
 
@@ -22,6 +23,10 @@ export class InputScreenOfDetailsComponent implements OnInit {
 
   removeButtonClicked() {
     this.rows.pop();
+  }
+
+  rowindexUpdate(e) {
+    console.log(e.target);
   }
 
 }

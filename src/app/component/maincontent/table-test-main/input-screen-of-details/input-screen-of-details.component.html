@@ -12,7 +12,7 @@
         </tr>
 
         <ng-container *ngFor="let row of rows">
-          <tr>
+          <tr (click)="rowindexUpdate($event)">
             <td>
               <input type=text>
             </td>

@@ -95,6 +95,10 @@ $tableheight:300px; // tableの高さ
         margin-right: 5px;
         i {
             margin: 2px;
+            transition: transform 0.3s ease-in;
+            &:hover {
+                transform: rotateZ(180deg)
+            }
         }
     }
 }
