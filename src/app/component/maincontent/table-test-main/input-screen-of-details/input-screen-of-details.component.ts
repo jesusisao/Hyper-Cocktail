@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputScreenOfDetailsComponent implements OnInit {
 
+  static rowindex: number; // 初期値0
   rows: number[] = [0, 0, 0, 0, 0];
-  rowindex: number;
 
   constructor() { }
 
@@ -18,15 +18,22 @@ export class InputScreenOfDetailsComponent implements OnInit {
   // 最後に選択した行番号rowindexを持っておいて、そいつを基準に挿入したり削除したりすればいい
 
   addButtonClicked() {
-    this.rows.push(0);
+    if (InputScreenOfDetailsComponent.rowindex === undefined) {
+      this.rows.push(5);
+    } else {
+      console.log(InputScreenOfDetailsComponent.rowindex);
+      this.rows.splice(InputScreenOfDetailsComponent.rowindex, 0, 9);
+      console.log(this.rows);
+    }
   }
 
   removeButtonClicked() {
     this.rows.pop();
   }
 
-  rowindexUpdate(e) {
-    console.log(e.target);
+  rowindexUpdate(index: number) {
+    InputScreenOfDetailsComponent.rowindex = index;
+    console.log(InputScreenOfDetailsComponent.rowindex);
   }
 
 }
