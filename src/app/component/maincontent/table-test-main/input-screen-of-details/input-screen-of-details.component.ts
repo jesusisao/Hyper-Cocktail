@@ -7,33 +7,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputScreenOfDetailsComponent implements OnInit {
 
-  static rowindex: number; // 初期値0
-  rows: number[] = [0, 0, 0, 0, 0];
+  static clickedRowindex: number;
+  rows: Row[] = [];
+  newrow: Row = NEWROW;
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  // 最後に選択した行番号rowindexを持っておいて、そいつを基準に挿入したり削除したりすればいい
-
-  addButtonClicked() {
-    if (InputScreenOfDetailsComponent.rowindex === undefined) {
-      this.rows.push(5);
-    } else {
-      console.log(InputScreenOfDetailsComponent.rowindex);
-      this.rows.splice(InputScreenOfDetailsComponent.rowindex, 0, 9);
-      console.log(this.rows);
+    for (let i = 0; i < 6; i++) {
+      this.rows.push(this.newrow);
     }
   }
 
+  addButtonClicked() {
+    if (InputScreenOfDetailsComponent.clickedRowindex === undefined) {
+      this.rows.push(this.newrow);
+      return;
+    }
+    this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 0, { columnA: '', columnB: 1000, columnC: '', columnD: '' });
+    console.log('通過チェック');
+  }
+
   removeButtonClicked() {
-    this.rows.pop();
+    if (InputScreenOfDetailsComponent.clickedRowindex === undefined) {
+      this.rows.pop();
+      return;
+    }
+    this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 1);
+    console.log('通過チェック');
   }
 
   rowindexUpdate(index: number) {
-    InputScreenOfDetailsComponent.rowindex = index;
-    console.log(InputScreenOfDetailsComponent.rowindex);
+    InputScreenOfDetailsComponent.clickedRowindex = index;
+    console.log(InputScreenOfDetailsComponent.clickedRowindex);
   }
 
 }
+
+export interface Row {
+  columnA: string;
+  columnB: number;
+  columnC: string;
+  columnD: string;
+}
+
+export const NEWROW: Row = { columnA: '', columnB: 1000, columnC: '', columnD: '' };
