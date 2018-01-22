@@ -9,39 +9,51 @@ export class InputScreenOfDetailsComponent implements OnInit {
 
   static clickedRowindex: number;
   rows: Row[] = [];
-  newrow: Row = NEWROW;
+  // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
+  newrow: Row = { columnA: '', columnB: 1000, columnC: '', columnD: '' };
 
   constructor() { }
 
   ngOnInit() {
+    InputScreenOfDetailsComponent.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
     for (let i = 0; i < 6; i++) {
-      this.rows.push(this.newrow);
+      this.rows.push(Object.assign({}, this.newrow));
     }
   }
 
   addButtonClicked() {
-    if (InputScreenOfDetailsComponent.clickedRowindex === undefined) {
-      this.rows.push(this.newrow);
+    if (this.doEditTheLastRow()) {
+      this.rows.push(Object.assign({}, this.newrow));
       return;
     }
-    this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 0, { columnA: '', columnB: 1000, columnC: '', columnD: '' });
-    console.log('通過チェック');
+    this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 0, Object.assign({}, this.newrow));
+    console.log(this.rows);
   }
 
   removeButtonClicked() {
-    if (InputScreenOfDetailsComponent.clickedRowindex === undefined) {
+    if (this.doEditTheLastRow()) {
       this.rows.pop();
       return;
     }
     this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 1);
-    console.log('通過チェック');
+    console.log(this.rows);
   }
 
-  rowindexUpdate(index: number) {
+  clickedRowindexUpdate(index: number) {
     InputScreenOfDetailsComponent.clickedRowindex = index;
     console.log(InputScreenOfDetailsComponent.clickedRowindex);
   }
 
+  doEditTheLastRow(): boolean {
+    if (InputScreenOfDetailsComponent.clickedRowindex === undefined) {
+      console.log('clickedRowindexがundefinedでござる');
+      return true;
+    } else if (InputScreenOfDetailsComponent.clickedRowindex >= this.rows.length) {
+      console.log('clickedRowindexがLengthよりでかいか同じだよ');
+      return true;
+    }
+    return false;
+  }
 }
 
 export interface Row {
@@ -50,5 +62,3 @@ export interface Row {
   columnC: string;
   columnD: string;
 }
-
-export const NEWROW: Row = { columnA: '', columnB: 1000, columnC: '', columnD: '' };
