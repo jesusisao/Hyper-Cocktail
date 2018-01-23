@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AngularSplitModule } from 'angular-split';
-import { DomSanitizer } from '@angular/platform-browser/';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DomSanitizer } from '@angular/platform-browser/';
+import { FormsModule } from '@angular/forms';
 
 import { MY_ROUTES } from './app.routing';
 
@@ -41,6 +42,7 @@ import { WelcomePageComponent } from './component/maincontent/welcome-page/welco
     AngularSplitModule,
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatFormFieldModule,
     MatTableModule,
     MatInputModule,

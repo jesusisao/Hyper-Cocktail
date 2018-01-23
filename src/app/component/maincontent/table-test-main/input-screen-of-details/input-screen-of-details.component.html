@@ -17,16 +17,16 @@
               <input type=text name='details1-{{tr.rowIndex}}-1' [value]='tr.rowIndex'>
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-2' (input)='row.columnA=$event.target.value'> 
+              <input type=text name='details1-{{tr.rowIndex}}-2' [(ngModel)]='row.columnA'> 
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-3' (input)='row.columnB=$event.target.value'> 
+              <input type=number name='details1-{{tr.rowIndex}}-3' [(ngModel)]='row.columnB' style="text-align: right;"> 
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-4' (input)='row.columnC=$event.target.value'> 
+              <input type=text name='details1-{{tr.rowIndex}}-4' [(ngModel)]='row.columnC'> 
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-5' (input)='row.columnD=$event.target.value'> 
+              <input type=text name='details1-{{tr.rowIndex}}-5' [(ngModel)]='row.columnD'> 
             </td>
           </tr>
         </ng-container>
