@@ -7,14 +7,12 @@ import { DomSanitizer } from '@angular/platform-browser/';
 import { FormsModule } from '@angular/forms';
 
 import { MY_ROUTES } from './app.routing';
-
 import {
   MatFormFieldModule,
   MatInputModule,
   MatSortModule,
   MatTableModule,
 } from '@angular/material';
-
 
 import { AppComponent } from './component/app.component';
 import { ErrorComponent } from './component/error/error.component';
@@ -26,7 +24,6 @@ import { SubmenuTableTestComponent } from './component/submenu/submenu-table-tes
 import { SubmenuFileGeneratorComponent } from './component/submenu/submenu-file-generator/submenu-file-generator.component';
 import { WelcomePageComponent } from './component/maincontent/welcome-page/welcome-page.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +33,7 @@ import { WelcomePageComponent } from './component/maincontent/welcome-page/welco
     SubmenuTableTestComponent,
     SubmenuFileGeneratorComponent,
     ErrorComponent,
-    InputScreenOfDetailsComponent
+    InputScreenOfDetailsComponent,
   ],
   imports: [
     AngularSplitModule,
