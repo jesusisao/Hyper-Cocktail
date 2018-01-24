@@ -4,7 +4,7 @@ export const MAINMENUES: Mainmenu[] = [
     {
         id: 100,
         name: 'Table Test',
-        route: '/table-test',
+        route: '/test',
         description: 'テスト説明文',
         sortNum: 10,
         color: 'rgba(124,22,65,0.7)',

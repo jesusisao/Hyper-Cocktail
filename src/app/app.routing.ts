@@ -5,11 +5,12 @@ import { ErrorComponent } from './component/error/error.component';
 import { SubmenuTableTestComponent } from './component/submenu/submenu-table-test/submenu-table-test.component';
 
 import { SubmenuFileGeneratorComponent } from './component/submenu/submenu-file-generator/submenu-file-generator.component';
-import { MatTableTestComponent } from './component/maincontent/table-test-main/mat-table-test/mat-table-test.component';
+import { MatTableTestComponent } from './component/maincontent/test-main/mat-table-test/mat-table-test.component';
 // tslint:disable-next-line:max-line-length
-import { InputScreenOfDetailsComponent } from './component/maincontent/table-test-main/input-screen-of-details/input-screen-of-details.component';
+import { InputScreenOfDetailsComponent } from './component/maincontent/test-main/input-screen-of-details/input-screen-of-details.component';
 
 import { FileGeneratorComponent } from './component/maincontent/file-generator-main/file-generator.component';
+import { ZipcodeTestComponent } from './component/maincontent/zipcode-test/zipcode-test.component';
 
 // ・メインメニューアイコンを押したときにサブメニューを書き換える
 // ・サブメニュー押した時にコンテンツを書き換える
@@ -21,9 +22,10 @@ const myRoutes = [
         ]
     },
 
-    { path: 'table-test', component: SubmenuTableTestComponent },
-    { path: 'table-test/mat-table-test', component: MatTableTestComponent, outlet: 'maincontent' },
-    { path: 'table-test/input-screen-of-details', component: InputScreenOfDetailsComponent, outlet: 'maincontent' },
+    { path: 'test', component: SubmenuTableTestComponent },
+    { path: 'test/mat-table-test', component: MatTableTestComponent, outlet: 'maincontent' },
+    { path: 'test/input-screen-of-details', component: InputScreenOfDetailsComponent, outlet: 'maincontent' },
+    { path: 'test/zipcode-test', component: ZipcodeTestComponent, outlet: 'maincontent' },
 
     { path: 'file-generator', component: SubmenuFileGeneratorComponent },
     { path: 'file-generator/main', component: FileGeneratorComponent, outlet: 'maincontent' },
