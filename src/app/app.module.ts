@@ -6,7 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DomSanitizer } from '@angular/platform-browser/';
 import { FormsModule } from '@angular/forms';
 
+import { ColoredDirective } from './directive/colored.directive';
 import { MY_ROUTES } from './app.routing';
+
 import {
   MatFormFieldModule,
   MatInputModule,
@@ -34,6 +36,7 @@ import { WelcomePageComponent } from './component/maincontent/welcome-page/welco
     SubmenuFileGeneratorComponent,
     ErrorComponent,
     InputScreenOfDetailsComponent,
+    ColoredDirective,
   ],
   imports: [
     AngularSplitModule,
