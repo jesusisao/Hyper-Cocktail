@@ -1,3 +1,5 @@
-<p>
-  zipcode-test works!
-</p>
+<form #myForm=" ngForm">
+  <label> 郵便番号；
+    <input type=" text" name=" zip" [(ngModel)]=" data. zip" #zip=" ngModel" myZip /> </label>
+  <span *ngIf=" zip. errors?. zip"> 郵便番号 は 999-9999 の 形式 で 入力 し て ください。 </span>
+</form>
