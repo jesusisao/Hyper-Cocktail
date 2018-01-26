@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-input-screen-of-details',
   templateUrl: './input-screen-of-details.component.html',
   styleUrls: ['./input-screen-of-details.component.scss']
 })
+
 export class InputScreenOfDetailsComponent implements OnInit {
 
   static clickedRowindex: number;
@@ -12,7 +13,7 @@ export class InputScreenOfDetailsComponent implements OnInit {
   // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
   newrow: Row = { columnA: '', columnB: 1000, columnC: '', columnD: '' };
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     InputScreenOfDetailsComponent.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
@@ -27,7 +28,6 @@ export class InputScreenOfDetailsComponent implements OnInit {
       return;
     }
     this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 0, Object.assign({}, this.newrow));
-    console.log(this.rows);
   }
 
   removeButtonClicked() {
@@ -36,6 +36,10 @@ export class InputScreenOfDetailsComponent implements OnInit {
       return;
     }
     this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 1);
+    this.cd.detectChanges(); // ExpressionChangedAfterItHasBeenCheckedError回避のため
+  }
+
+  debugButtonClicked() {
     console.log(this.rows);
   }
 
@@ -46,10 +50,8 @@ export class InputScreenOfDetailsComponent implements OnInit {
 
   doEditTheLastRow(): boolean {
     if (InputScreenOfDetailsComponent.clickedRowindex === undefined) {
-      console.log('clickedRowindexがundefinedでござる');
       return true;
     } else if (InputScreenOfDetailsComponent.clickedRowindex >= this.rows.length) {
-      console.log('clickedRowindexがLengthよりでかいか同じだよ');
       return true;
     }
     return false;
