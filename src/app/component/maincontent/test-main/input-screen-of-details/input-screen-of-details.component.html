@@ -1,11 +1,13 @@
 <div class="table-wrapper-3">
-  <label for="inputDetails">テーブルの説明</label>
+  <label for="inputDetails" myColored="#f0f">テーブルの説明</label>
   <div id="inputDetails" class="table-wrapper-2">
     <div class="table-wrapper">
       <table>
         <tr class="header">
-          <th>行番号</th>
-          <th>摘要</th>
+          <th class='line-no'>行番号</th>
+          <th>商品コード</th>
+          <th>商品名</th>
+          <th>規格</th>
           <th>金額</th>
           <th>特急料金</th>
           <th>備考</th>
@@ -13,20 +15,28 @@
 
         <ng-container *ngFor="let row of rows">
           <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)">
-            <td>
-              <input type=text name='details1-{{tr.rowIndex}}-1' [value]='tr.rowIndex'>
+            <td class='line-no'>
+              <input type=text [value]='tr.rowIndex' style="text-align: center;">
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-2' (input)='row.columnA=$event.target.value'> 
+              <input type=text [(ngModel)]='row.columnA'> 
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-3' (input)='row.columnB=$event.target.value'> 
+              <input type=text [(ngModel)]='row.columnA'>
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-4' (input)='row.columnC=$event.target.value'> 
+              <input type=text [(ngModel)]='row.columnA'>
             </td>
             <td>
-              <input type=text name='details1-{{tr.rowIndex}}-5' (input)='row.columnD=$event.target.value'> 
+              <input type=number
+                [(ngModel)]='row.columnB'
+                style="text-align: right;">
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnC'> 
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnD'> 
             </td>
           </tr>
         </ng-container>

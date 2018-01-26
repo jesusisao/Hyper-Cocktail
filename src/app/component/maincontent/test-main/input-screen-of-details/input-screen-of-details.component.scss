@@ -49,6 +49,11 @@ $tableheight:300px; // tableの高さ
                         // 偶数行
                         background-color: rgba(153, 235, 255, 0.3);
                     }
+
+                    .line-no{
+                        width: 50px;
+                    }
+
                     th {
                         padding: 5px;
                         white-space: nowrap;

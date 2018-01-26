@@ -11,7 +11,7 @@ export class InputScreenOfDetailsComponent implements OnInit {
   static clickedRowindex: number;
   rows: Row[] = [];
   // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
-  newrow: Row = { columnA: '', columnB: 1000, columnC: '', columnD: '' };
+  newrow: Row = { columnA: '', columnB: 0, columnC: '', columnD: '' };
 
   constructor(private cd: ChangeDetectorRef) { }
 

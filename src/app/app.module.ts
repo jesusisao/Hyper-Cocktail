@@ -2,9 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AngularSplitModule } from 'angular-split';
-import { DomSanitizer } from '@angular/platform-browser/';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DomSanitizer } from '@angular/platform-browser/';
+import { FormsModule } from '@angular/forms';
 
+import { ColoredDirective } from './directive/colored.directive';
 import { MY_ROUTES } from './app.routing';
 
 import {
@@ -14,17 +16,16 @@ import {
   MatTableModule,
 } from '@angular/material';
 
-
 import { AppComponent } from './component/app.component';
 import { ErrorComponent } from './component/error/error.component';
 import { FileGeneratorComponent } from './component/maincontent/file-generator-main/file-generator.component';
 // tslint:disable-next-line:max-line-length
-import { InputScreenOfDetailsComponent } from './component/maincontent/table-test-main/input-screen-of-details/input-screen-of-details.component';
-import { MatTableTestComponent } from './component/maincontent/table-test-main/mat-table-test/mat-table-test.component';
+import { InputScreenOfDetailsComponent } from './component/maincontent/test-main/input-screen-of-details/input-screen-of-details.component';
+import { MatTableTestComponent } from './component/maincontent/test-main/mat-table-test/mat-table-test.component';
 import { SubmenuTableTestComponent } from './component/submenu/submenu-table-test/submenu-table-test.component';
 import { SubmenuFileGeneratorComponent } from './component/submenu/submenu-file-generator/submenu-file-generator.component';
 import { WelcomePageComponent } from './component/maincontent/welcome-page/welcome-page.component';
-
+import { ZipcodeTestComponent } from './component/maincontent/zipcode-test/zipcode-test.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +36,15 @@ import { WelcomePageComponent } from './component/maincontent/welcome-page/welco
     SubmenuTableTestComponent,
     SubmenuFileGeneratorComponent,
     ErrorComponent,
-    InputScreenOfDetailsComponent
+    InputScreenOfDetailsComponent,
+    ColoredDirective,
+    ZipcodeTestComponent,
   ],
   imports: [
     AngularSplitModule,
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatFormFieldModule,
     MatTableModule,
     MatInputModule,

@@ -18,7 +18,7 @@ export class SubmenuTableTestComponent implements OnInit {
 
   ngOnInit() {
     // コンテンツの初期表示
-    this.router.navigate([{ outlets: { maincontent: 'table-test/mat-table-test' } }]);
+    this.router.navigate([{ outlets: { maincontent: 'test/mat-table-test' } }]);
   }
 }
 
@@ -31,10 +31,10 @@ export interface Submenu {
 }
 
 export const SUBMENUES: Submenu[] = [
-  { id: 100, name: 'Mat Table Test', route: 'table-test/mat-table-test', description: 'テスト説明文', sortNum: 10 },
-  { id: 101, name: 'Input Screen Of Details', route: 'table-test/input-screen-of-details', description: 'テスト説明文', sortNum: 11 },
-  { id: 102, name: 'test2', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 12 },
-  { id: 103, name: 'test3', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 13 },
-  { id: 104, name: 'test4', route: 'table-test/other-table-test', description: 'テスト説明文', sortNum: 14 }
+  { id: 100, name: 'Mat Table Test', route: 'test/mat-table-test', description: 'テスト説明文', sortNum: 10 },
+  { id: 101, name: 'Input Screen Of Details', route: 'test/input-screen-of-details', description: 'テスト説明文', sortNum: 11 },
+  { id: 102, name: 'Zipcode Test', route: 'test/zipcode-test', description: 'テスト説明文', sortNum: 12 },
+  { id: 103, name: 'test3', route: 'test/other-table-test', description: 'テスト説明文', sortNum: 13 },
+  { id: 104, name: 'test4', route: 'test/other-table-test', description: 'テスト説明文', sortNum: 14 }
 ];
 
