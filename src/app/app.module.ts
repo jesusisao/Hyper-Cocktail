@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { JsonpModule } from '@angular/http';
 
 import { AngularSplitModule } from 'angular-split';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +28,7 @@ import { SubmenuTableTestComponent } from './component/submenu/submenu-table-tes
 import { SubmenuFileGeneratorComponent } from './component/submenu/submenu-file-generator/submenu-file-generator.component';
 import { WelcomePageComponent } from './component/maincontent/welcome-page/welcome-page.component';
 import { ZipcodeTestComponent } from './component/maincontent/zipcode-test/zipcode-test.component';
+import { ZipValidator } from './directive/zip.validator';
 
 @NgModule({
   declarations: [
@@ -39,12 +42,15 @@ import { ZipcodeTestComponent } from './component/maincontent/zipcode-test/zipco
     InputScreenOfDetailsComponent,
     ColoredDirective,
     ZipcodeTestComponent,
+    ZipValidator,
   ],
   imports: [
     AngularSplitModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpModule,
+    JsonpModule,
     MatFormFieldModule,
     MatTableModule,
     MatInputModule,

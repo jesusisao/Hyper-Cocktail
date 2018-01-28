@@ -1,5 +1,22 @@
-<form #myForm=" ngForm">
-  <label> 郵便番号；
-    <input type=" text" name=" zip" [(ngModel)]=" data. zip" #zip=" ngModel" myZip /> </label>
-  <span *ngIf=" zip. errors?. zip"> 郵便番号 は 999-9999 の 形式 で 入力 し て ください。 </span>
-</form>
+<div class='wrapper'>
+  <form #myForm="ngForm">
+
+    <label class='input-label' for="zip">郵便番号:</label>
+    <input type="text" name="zip" [(ngModel)]="data.zip" #zip="ngModel" myZip (keydown)="zipInputed($event.which, data.zip)"/>
+    <span *ngIf="zip.errors?.zip" class='error-text'>郵便番号は999-9999の形式で入力してください。</span>
+    <br>
+
+    <label class='input-label' for="address1">都道府県名:</label>
+    <input type="text" name="address1" [(ngModel)]="data.address1" />
+    <br>
+
+    <label class='input-label' for="address2">市町村名:</label>
+    <input type="text" name="address2" [(ngModel)]="data.address2" />
+    <br>
+
+    <label class='input-label' for="address3">町域名:</label>
+    <input type="text" name="address3" [(ngModel)]="data.address3" />
+    <br>
+
+  </form>
+</div>
