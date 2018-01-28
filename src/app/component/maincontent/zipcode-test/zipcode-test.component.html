@@ -2,7 +2,7 @@
   <form #myForm="ngForm">
 
     <label class='input-label' for="zip">郵便番号:</label>
-    <input type="text" name="zip" [(ngModel)]="data.zip" #zip="ngModel" myZip (keydown)="zipInputed($event.which, data.zip)"/>
+    <input type="text" name="zip" maxlength="8" [(ngModel)]="data.zip" #zip="ngModel" myZip (keydown)="zipInputed($event.which, data.zip)"/>
     <span *ngIf="zip.errors?.zip" class='error-text'>郵便番号は999-9999の形式で入力してください。</span>
     <br>
 
