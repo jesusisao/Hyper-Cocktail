@@ -1,3 +1,4 @@
+// 勉強用
 import { Directive, Input, OnChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({

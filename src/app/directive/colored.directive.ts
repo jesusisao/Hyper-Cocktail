@@ -1,3 +1,4 @@
+// 勉強用
 import { Directive, ElementRef, Input, OnInit, HostListener } from '@angular/core';
 
 @Directive({

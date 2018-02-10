@@ -1,3 +1,4 @@
+// 勉強用
 import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 
