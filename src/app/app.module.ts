@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { ColoredDirective } from './directive/colored.directive';
 import { MY_ROUTES } from './app.routing';
 
+import { ZipcodeService } from './service/zipcode.service';
+
 import {
   MatFormFieldModule,
   MatInputModule,
@@ -57,7 +59,7 @@ import { ZipValidator } from './directive/zip.validator';
     MatSortModule,
     MY_ROUTES,
   ],
-  providers: [],
+  providers: [ZipcodeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

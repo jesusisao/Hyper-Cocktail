@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Jsonp, URLSearchParams } from '@angular/http';
+import { keymap } from '../../../class/keymap';
+import { ZipcodeService } from '../../../service/zipcode.service';
 
 @Component({
   selector: 'app-zipcode-test',
@@ -10,45 +11,37 @@ import { Jsonp, URLSearchParams } from '@angular/http';
 export class ZipcodeTestComponent {
 
   data = {
-    zip: '783-0060',
+    zip: '004-0021',
     address1: '',
     address2: '',
     address3: '',
   };
 
-  constructor(private jsonp: Jsonp) { }
+  constructor(private zipcodeservice: ZipcodeService) { }
 
   zipInputed(key, zipcode) {
-    const params = new URLSearchParams();
-    params.set('zipcode', zipcode);
-    params.set('callback', 'JSONP_CALLBACK'); // JSONP_CALLBACKは固定
-    console.log(zipcode);
 
-    const tabKey = 9;
-    const enterKey = 13;
-
-    if (key !== enterKey && key !== tabKey) {
+    if (key !== keymap.enterKey && key !== keymap.tabKey) {
       return;
     }
 
-    this.jsonp.get('http://zipcloud.ibsnet.co.jp/api/search', { search: params })
+    this.zipcodeservice.requestAddress(zipcode)
       .subscribe(
-      response => {
-
-        const jsonData = response.json() || {};
-        const isZipcodeNotFound = jsonData.results === null;
-
-        if (isZipcodeNotFound) {
-          console.log('郵便番号が見つかりません');
-          return;
-        }
-
-        this.data.address1 = jsonData.results[0].address1;
-        this.data.address2 = jsonData.results[0].address2;
-        this.data.address3 = jsonData.results[0].address3;
-      },
+        data => {
+          const isZipcodeNotFound: boolean = (data.results === null);
+          if (isZipcodeNotFound) {
+            console.log('郵便番号が見つかりません');
+            return;
+          }
+          this.data.address1 = data.results[0].address1;
+          this.data.address2 = data.results[0].address2;
+          this.data.address3 = data.results[0].address3;
+        },
       error => {
-        console.log('アクセス失敗！ なんてこった！');
-      });
+        console.log('アクセス失敗！');
+      }
+      );
+
   }
+
 }
