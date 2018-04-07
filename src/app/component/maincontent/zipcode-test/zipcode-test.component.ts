@@ -41,7 +41,5 @@ export class ZipcodeTestComponent {
         console.log('アクセス失敗！');
       }
       );
-
   }
-
 }
