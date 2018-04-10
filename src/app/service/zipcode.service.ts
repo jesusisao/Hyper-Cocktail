@@ -12,7 +12,7 @@ export class ZipcodeService {
     constructor(private jsonp: Jsonp) { }
 
     /**
-     * 郵便番号から住所を取得するためのJSONを返す関数。取得先は外部ドメイン。
+     * 郵便番号から住所を取得するためのJSONを返す関数。取得先はフリーのサービス。
      */
     requestAddress(zipcode: string): Observable<any> {
         const params = new URLSearchParams();
