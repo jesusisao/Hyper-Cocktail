@@ -1,5 +1,5 @@
 <div class='wrapper'>
-  <form #myForm="ngForm">
+  <form>
 
     <label class='input-label' for="zip">郵便番号:</label>
     <input type="text" name="zip" maxlength="8" [(ngModel)]="data.zip" #zip="ngModel" myZip (keydown)="zipInputed($event.which, data.zip)"/>

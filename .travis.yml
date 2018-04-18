@@ -1,0 +1,27 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - "6"
+  - "7"
+  - node
+
+dist: trusty
+
+cache:
+  directories:
+    - node_modules
+
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+before_install:
+  - npm install
+
+script:
+  - npm run test

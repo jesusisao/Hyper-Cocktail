@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { ZipcodeTestComponent } from './zipcode-test.component';
+import { ZipcodeService } from '../../../service/zipcode.service';
+import { JsonpModule } from '@angular/http';
 
 describe('ZipcodeTestComponent', () => {
   let component: ZipcodeTestComponent;
@@ -8,9 +10,11 @@ describe('ZipcodeTestComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ZipcodeTestComponent ]
+      declarations: [ZipcodeTestComponent],
+      imports: [FormsModule, JsonpModule],
+      providers: [ZipcodeService] // 本当はあまり良くない。スタブを用意するべき。
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

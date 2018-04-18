@@ -1,4 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatFormFieldModule,
+  MatInputModule,
+  MatSortModule,
+  MatTableModule,
+} from '@angular/material';
 
 import { MatTableTestComponent } from './mat-table-test.component';
 
@@ -8,9 +15,16 @@ describe('TableTestComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatTableTestComponent ]
+      declarations: [MatTableTestComponent],
+      imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        MatSortModule,
+        MatTableModule,
+        BrowserAnimationsModule
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

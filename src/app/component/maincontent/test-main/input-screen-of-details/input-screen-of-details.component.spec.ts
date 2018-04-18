@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { InputScreenOfDetailsComponent } from './input-screen-of-details.component';
+import { FormsModule } from '@angular/forms';
+
 
 describe('InputScreenOfDetailsComponent', () => {
   let component: InputScreenOfDetailsComponent;
@@ -8,9 +9,10 @@ describe('InputScreenOfDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputScreenOfDetailsComponent ]
+      declarations: [InputScreenOfDetailsComponent],
+      imports: [FormsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
