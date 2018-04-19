@@ -1,10 +1,11 @@
-sudo: false
+sudo: true
 
 language: node_js
 
 node_js:
   - "6"
   - "7"
+  # node＝最新版
   - node
 
 dist: trusty
