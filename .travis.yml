@@ -1,10 +1,11 @@
-sudo: false
+sudo: true
 
 language: node_js
 
 node_js:
   - "6"
   - "7"
+  # node＝最新版
   - node
 
 dist: trusty
@@ -21,7 +22,9 @@ addons:
       - google-chrome-stable
 
 before_install:
+  - npm install -g angular-cli
+  - npm install -g karma
   - npm install
 
 script:
-  - npm run test
+  - karma start karma.conf.js --single-run
