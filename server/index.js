@@ -16,6 +16,16 @@ app.use(express.static(__dirname + '/../dist'));
 // Heroku port
 app.listen(port);
 
+// API実装テスト
+app.get('/api/*', function (req, res) {
+    let user = {
+        id: 1,
+        name: "tanaka",
+        department: "system support"
+    }
+    res.json(user);
+});
+
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
 app.get('/*', function (req, res) {
