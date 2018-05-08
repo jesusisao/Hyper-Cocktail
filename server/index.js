@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 8080;
 
-// Gzip
+// 静的リソースの圧縮をgzipで行う。圧縮レベルはzlibのデフォルトの6。
 app.use(compression());
 
 // Run the app by serving the static files
