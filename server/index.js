@@ -17,9 +17,9 @@ app.use(express.static(__dirname + '/../dist'));
 app.listen(port);
 
 // API実装テスト
-app.get('/api/*', function (req, res) {
+app.get('/api/:id', function (req, res) {
     let user = {
-        id: 1,
+        id: req.params.id,
         name: "tanaka",
         department: "system support"
     }
