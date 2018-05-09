@@ -4,6 +4,42 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8080;
+const mysql = require("mysql");
+const md5 = require('MD5');
+
+function REST() {
+    const self = this;
+    self.connectMysql();
+};
+
+REST.prototype.connectMysql = function () {
+    const self = this;
+    const pool = mysql.createPool({
+        connectionLimit: 100,
+        host: 'localhost',
+        user: 'db user name',
+        password: 'db password',
+        database: 'Test',
+        debug: false
+    });
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            self.stop(err);
+        } else {
+            self.configureExpress(connection);
+        }
+    });
+}
+
+REST.prototype.configureExpress = function (connection) {
+    const self = this;
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+    const router = express.Router();
+    app.use('/api', router);
+    const rest_router = new rest(router, connection, md5);
+    self.startServer();
+}
 
 // 静的リソースの圧縮をgzipで行う。圧縮レベルはzlibのデフォルトの6。
 app.use(compression());
