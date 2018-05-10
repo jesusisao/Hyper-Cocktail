@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
+const api = require('./api/api.js')
 
 // postの前準備。expressはそのままではリクエストのbodyをパースできないため。
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,15 +22,8 @@ app.use(express.static(__dirname + '/../dist'));
 const port = process.env.PORT || 8080;
 app.listen(port);
 
-// API実装テスト
-app.get('/api/user/:id', function (req, res) {
-    let user = {
-        id: req.params.id,
-        name: "tanaka",
-        department: "system support"
-    }
-    res.json(user);
-});
+// API実装
+app.use('/api', api);
 
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
