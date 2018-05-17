@@ -9,8 +9,7 @@ const pool = mysql.createPool(process.env.JAWSDB_URL + '?connectionLimit=100' + 
 pool.getConnection(function (err, connection) {
     if (err) {
         console.log("MYSQL CONNECTION ERROR!" + err);
-    } else {
-        console.log("CONNECTED TO MYSQL.");
+        throw err;
     }
 });
 
