@@ -1,3 +1,5 @@
+const express = require('express');
+const router = express.Router();
 const mysql = require('mysql');
 
 // JAWSDB_URLはJAWSDBを入れた時にHeroku側でデフォルトで作られるNodeの環境変数。
@@ -11,3 +13,11 @@ pool.getConnection(function (err, connection) {
         console.log("CONNECTED TO MYSQL.");
     }
 });
+
+router.get('/', function (req, res) {
+    pool.query('select * from todo_lists', function (err, rows) {
+        res.render('todo_lists', { todo_lists: rows });
+    });
+})
+
+module.exports = router;

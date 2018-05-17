@@ -4,7 +4,9 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const api = require('./api/api.js')
+// api
+const todolist = require('./routes/todolist')
+const user = require('./routes/user')
 
 // postの前準備。expressはそのままではリクエストのbodyをパースできないため。
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +25,8 @@ const port = process.env.PORT || 8080;
 app.listen(port);
 
 // API実装
-app.use('/api', api);
+app.use('/todolist', todolist);
+app.use('/user', user); // テスト実装
 
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
