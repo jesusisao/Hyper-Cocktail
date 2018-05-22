@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Jsonp, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ZipcodeService {
@@ -21,15 +18,17 @@ export class ZipcodeService {
 
         return this.jsonp // ここが関数へのreturn
             .get('http://zipcloud.ibsnet.co.jp/api/search', { search: params })
-            .map(
-                response => {
-                    return response.json() || {};
-                }
-            )
-            .catch(
-                error => {
-                    return Observable.throw(error.statusText);
-                }
+            .pipe(
+                map(
+                    response => {
+                        return response.json() || {};
+                    }
+                ),
+                catchError(
+                    error => {
+                        return throwError(error.statusText);
+                    }
+                )
             );
     }
 }

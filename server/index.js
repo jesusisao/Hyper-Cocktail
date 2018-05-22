@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(compression());
 
 // Run the app by serving the static files
-// in the dist directory
+// // in the dist directory
 app.use(express.static(__dirname + '/../dist'));
 
 // Start the app by listening on the default
