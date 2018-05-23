@@ -30,5 +30,8 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['ChromeHeadless'],
     singleRun: false,
+    preprocessors: {
+      './src/test.ts': ['webpack']
+    },
   });
 };
