@@ -9,7 +9,7 @@ import {
 
 import { MatTableTestComponent } from './mat-table-test.component';
 
-describe('TableTestComponent', () => {
+describe('MatTableTestComponent', () => {
   let component: MatTableTestComponent;
   let fixture: ComponentFixture<MatTableTestComponent>;
 
