@@ -1,15 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { SubmenuTableTestComponent } from './submenu-table-test.component';
+import { Router } from '@angular/router';
 
 describe('SubmenuTableTestComponent', () => {
   let component: SubmenuTableTestComponent;
   let fixture: ComponentFixture<SubmenuTableTestComponent>;
+  let routerStub;
 
   beforeEach(async(() => {
+    routerStub = {
+      navigate: jasmine.createSpy('navigate')
+    };
     TestBed.configureTestingModule({
       declarations: [ SubmenuTableTestComponent ],
-      imports: [RouterTestingModule]
+      providers: [
+        { provide: Router, useValue: routerStub },
+      ],
     })
     .compileComponents();
   }));
