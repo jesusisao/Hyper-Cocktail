@@ -21,7 +21,7 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './component/app.component';
-import { ErrorComponent } from './component/error/error.component';
+import { ErrorComponent } from './component/common/error/error.component';
 import { FileGeneratorComponent } from './component/maincontent/file-generator-main/file-generator.component';
 // tslint:disable-next-line:max-line-length
 import { InputScreenOfDetailsComponent } from './component/maincontent/test-main/input-screen-of-details/input-screen-of-details.component';
@@ -31,6 +31,9 @@ import { SubmenuFileGeneratorComponent } from './component/submenu/submenu-file-
 import { WelcomePageComponent } from './component/maincontent/welcome-page/welcome-page.component';
 import { ZipcodeTestComponent } from './component/maincontent/zipcode-test/zipcode-test.component';
 import { ZipValidator } from './directive/zip.validator';
+import { DetailsTableComponent } from './component/common/details-table/details-table.component';
+// tslint:disable-next-line:max-line-length
+import { InputScreenOfDetails2Component } from './component/maincontent/test-main/input-screen-of-details2/input-screen-of-details2.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import { ZipValidator } from './directive/zip.validator';
     ColoredDirective,
     ZipcodeTestComponent,
     ZipValidator,
+    DetailsTableComponent,
+    InputScreenOfDetails2Component,
   ],
   imports: [
     AngularSplitModule,

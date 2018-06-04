@@ -1,0 +1,79 @@
+<div class="all-wrapper">
+  <label for="inputDetails">テーブルの説明</label>
+  <table class="sticky_table">
+
+    <thead>
+      <tr class="header">
+        <th class='line-no blank'>行番号</th>
+        <th>商品コード</th>
+        <th>商品名</th>
+        <th>規格</th>
+        <th>金額</th>
+        <th>特急料金</th>
+        <th>備考</th>
+        <th>備考</th>
+        <th>備考</th>
+        <th>備考</th>
+        <th>備考</th>
+        <th>備考</th>
+        <th>備考</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let row of rows">
+        <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)">
+          <th class='line-no'>
+            <input type=text [value]='tr.rowIndex' style="text-align: center;">
+          </th>
+          <td>
+            <input type=text [(ngModel)]='row.columnA'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnA'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnA'>
+          </td>
+          <td>
+            <input type=number [(ngModel)]='row.columnB' style="text-align: right;">
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnC'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.columnD'>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+
+  </table>
+
+  <i class="material-icons" (click)="debugButtonClicked()">bug_report</i>
+  <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
+  <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
+
+</div>

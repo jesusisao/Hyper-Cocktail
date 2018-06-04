@@ -1,0 +1,44 @@
+$textcolor:#bbb;
+$bordercolor:rgba(255, 255, 255, 0.15);
+$tableheight:300px; // tableの高さ
+.table-wrapper-3 {
+    // ヘッダーとかボタンとかテーブル要素を全部ひっくるめたラッパー
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 14px -2px #000000;
+    padding: 10px;
+    label {
+        display: inline-block;
+        margin: 10px 0 5px 5px;
+    }
+    .table-wrapper-2 {
+        // 上下スクロールのためのラッパー
+        height: $tableheight;
+        overflow-y: auto;
+        position: relative;
+        &:before {
+            content: "";
+            display: block;
+            padding-top: $tableheight; // こいつで擬似的に高さを与えている
+        }
+        .table-wrapper {
+            // 横スクロールのためのラッパー
+            color: $textcolor;
+            left: 0;
+            overflow-x: auto;
+            position: absolute; // absoluteにすることで高さが消えている
+            top: 0;
+            width: 100%;
+            table {
+                border-collapse: collapse;
+                table-layout: fixed;
+                min-width: 100%;
+            }
+        }
+    }
+    .bottom-buttons {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 5px;
+    }
+}

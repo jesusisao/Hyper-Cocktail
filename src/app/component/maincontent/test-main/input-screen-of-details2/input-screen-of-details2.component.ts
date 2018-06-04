@@ -1,13 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DetailsTableComponent } from '../../../common/details-table/details-table.component';
 
 @Component({
-  selector: 'app-input-screen-of-details',
-  templateUrl: './input-screen-of-details.component.html',
-  styleUrls: ['./input-screen-of-details.component.scss']
+  selector: 'app-input-screen-of-details2',
+  templateUrl: './input-screen-of-details2.component.html',
+  styleUrls: ['./input-screen-of-details2.component.scss']
 })
 
-export class InputScreenOfDetailsComponent implements OnInit {
+export class InputScreenOfDetails2Component implements OnInit {
 
   static clickedRowindex: number;
   rows: Row[] = [];
@@ -17,7 +16,7 @@ export class InputScreenOfDetailsComponent implements OnInit {
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    InputScreenOfDetailsComponent.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
+    InputScreenOfDetails2Component.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
     for (let i = 0; i < 6; i++) {
       this.rows.push(Object.assign({}, this.newrow));
     }
@@ -28,7 +27,7 @@ export class InputScreenOfDetailsComponent implements OnInit {
       this.rows.push(Object.assign({}, this.newrow));
       return;
     }
-    this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 0, Object.assign({}, this.newrow));
+    this.rows.splice(InputScreenOfDetails2Component.clickedRowindex - 1, 0, Object.assign({}, this.newrow));
   }
 
   removeButtonClicked() {
@@ -36,7 +35,7 @@ export class InputScreenOfDetailsComponent implements OnInit {
       this.rows.pop();
       return;
     }
-    this.rows.splice(InputScreenOfDetailsComponent.clickedRowindex - 1, 1);
+    this.rows.splice(InputScreenOfDetails2Component.clickedRowindex - 1, 1);
     this.cd.detectChanges(); // ExpressionChangedAfterItHasBeenCheckedError回避のため
   }
 
@@ -45,14 +44,14 @@ export class InputScreenOfDetailsComponent implements OnInit {
   }
 
   clickedRowindexUpdate(index: number) {
-    InputScreenOfDetailsComponent.clickedRowindex = index;
-    console.log(InputScreenOfDetailsComponent.clickedRowindex);
+    InputScreenOfDetails2Component.clickedRowindex = index;
+    console.log(InputScreenOfDetails2Component.clickedRowindex);
   }
 
   doEditTheLastRow(): boolean {
-    if (InputScreenOfDetailsComponent.clickedRowindex === undefined) {
+    if (InputScreenOfDetails2Component.clickedRowindex === undefined) {
       return true;
-    } else if (InputScreenOfDetailsComponent.clickedRowindex >= this.rows.length) {
+    } else if (InputScreenOfDetails2Component.clickedRowindex >= this.rows.length) {
       return true;
     }
     return false;

@@ -19,24 +19,22 @@
               <input type=text [value]='tr.rowIndex' style="text-align: center;">
             </td>
             <td>
-              <input type=text [(ngModel)]='row.columnA'> 
-            </td>
-            <td>
               <input type=text [(ngModel)]='row.columnA'>
             </td>
             <td>
               <input type=text [(ngModel)]='row.columnA'>
             </td>
             <td>
-              <input type=number
-                [(ngModel)]='row.columnB'
-                style="text-align: right;">
+              <input type=text [(ngModel)]='row.columnA'>
             </td>
             <td>
-              <input type=text [(ngModel)]='row.columnC'> 
+              <input type=number [(ngModel)]='row.columnB' style="text-align: right;">
             </td>
             <td>
-              <input type=text [(ngModel)]='row.columnD'> 
+              <input type=text [(ngModel)]='row.columnC'>
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnD'>
             </td>
           </tr>
         </ng-container>
@@ -50,3 +48,55 @@
     <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
   </div>
 </div>
+<!-- ―――――――――――――――――――――――――――――――― -->
+<app-details-table>
+  <span class="table-rows">
+    <table>
+      <thead>
+        <tr class="header">
+          <th class='line-no'>行番号</th>
+          <th>商品コード</th>
+          <th>商品名</th>
+          <th>規格</th>
+          <th>金額</th>
+          <th>特急料金</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <ng-container *ngFor="let row of rows">
+          <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)">
+            <td class='line-no'>
+              <input type=text [value]='tr.rowIndex' style="text-align: center;">
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnA'>
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnA'>
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnA'>
+            </td>
+            <td>
+              <input type=number [(ngModel)]='row.columnB' style="text-align: right;">
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnC'>
+            </td>
+            <td>
+              <input type=text [(ngModel)]='row.columnD'>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </span>
+
+  <span class="table-buttons">
+    <i class="material-icons" (click)="debugButtonClicked()">bug_report</i>
+    <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
+    <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
+  </span>
+</app-details-table>

@@ -1,0 +1,13 @@
+<div class="table-wrapper-3">
+  <label for="inputDetails" myColored="#f0f">テーブルの説明</label>
+  <div id="inputDetails" class="table-wrapper-2">
+    <div class="table-wrapper">
+      <table>
+        <ng-content select=".table-rows"></ng-content>
+      </table>
+    </div>
+  </div>
+  <div class="bottom-buttons">
+    <ng-content select=".table-buttons"></ng-content>
+  </div>
+</div>

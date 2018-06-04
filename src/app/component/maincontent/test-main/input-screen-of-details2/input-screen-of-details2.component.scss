@@ -1,0 +1,89 @@
+:host {
+    color: #ccc;
+    width: 100%;
+}
+
+$textcolor:#bbb;
+$bordercolor:rgba(255, 255, 255, 0.15);
+$tableheight:300px;
+.all-wrapper {
+    // ヘッダーとかボタンとかテーブル要素を全部ひっくるめたラッパー
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 14px -2px #000000;
+    padding: 10px;
+    label {
+        display: inline-block;
+        margin: 10px 0 5px 5px;
+    }
+}
+
+.sticky_table {
+    display: block;
+    position: relative;
+    overflow: scroll;
+    width: 80%;
+    height: $tableheight;
+    border-collapse: collapse;
+    font-size: 0;
+    thead,
+    tbody {
+        display: block;
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        width: max-content;
+    }
+}
+
+.sticky_table tr {
+    background-color: rgba(187, 187, 187, 0.3);
+}
+
+.sticky_table th,
+.sticky_table td {
+    display: inline-block;
+    width: 8.0rem;
+    background: #fff;
+    font-size: 1.0rem;
+    input {
+        background-color: rgba(255, 255, 255, 0);
+        border: 2px solid rgba(255, 255, 255, 0); // focus時に位置がずれるのを防ぐため
+        box-sizing: border-box;
+        color: $textcolor;
+        display: inline-block;
+        height: 40px;
+        overflow: hidden;
+        padding-left: 5px;
+        padding-right: 5px;
+        transition: background-color 0.1s linear;
+        width: 100%;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        &:focus {
+            border: 2px solid #ff9900;
+            outline: 0;
+        }
+    }
+}
+
+.sticky_table tbody th {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.sticky_table thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.sticky_table thead th.blank {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
