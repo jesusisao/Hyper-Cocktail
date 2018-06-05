@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { InputScreenOfDetailsComponent } from './input-screen-of-details.component';
+import { DetailsTableComponent } from '../../../common/details-table/details-table.component';
 import { FormsModule } from '@angular/forms';
 
 
@@ -10,7 +12,8 @@ describe('InputScreenOfDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [InputScreenOfDetailsComponent],
-      imports: [FormsModule]
+      imports: [FormsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
   }));
