@@ -3,61 +3,62 @@
     width: 100%;
 }
 
-$textcolor:#bbb;
-$bordercolor:rgba(255, 255, 255, 0.15);
-$tableheight:300px;
 .all-wrapper {
     // ヘッダーとかボタンとかテーブル要素を全部ひっくるめたラッパー
     background-color: rgba(0, 0, 0, 0.1);
     box-shadow: 0px 5px 14px -2px #000000;
     padding: 10px;
+    width: max-content;
     label {
         display: inline-block;
         margin: 10px 0 5px 5px;
     }
-}
-
-.sticky_table {
-    display: block;
-    position: relative;
-    overflow: scroll;
-    width: 80%;
-    height: $tableheight;
-    border-collapse: collapse;
-    font-size: 0;
-    thead,
-    tbody {
-        display: block;
-        width: -webkit-max-content;
-        width: -moz-max-content;
-        width: max-content;
+    .bottom-buttons {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 5px;
+        i {
+            margin: 2px;
+            transition: transform 0.5s ease-in;
+            &:hover {
+                transform: rotateZ(360deg)
+            }
+        }
     }
 }
 
-.sticky_table tr {
-    background-color: rgba(187, 187, 187, 0.3);
+@mixin max-content-block {
+    display: block;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
 }
 
-.sticky_table th,
-.sticky_table td {
+$textcolor:#bbb;
+$bordercolor:rgba(150, 150, 150, 0.4);
+$tableheight:400px;
+$cellheight:40px;
+$cellwidth:8.0rem;
+@mixin input-cells {
     display: inline-block;
-    width: 8.0rem;
-    background: #fff;
+    height: $cellheight;
+    width: $cellwidth;
     font-size: 1.0rem;
     input {
-        background-color: rgba(255, 255, 255, 0);
-        border: 2px solid rgba(255, 255, 255, 0); // focus時に位置がずれるのを防ぐため
-        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0); // 透明
+        border: 2px solid rgba(255, 255, 255, 0); // 透明
+        box-sizing: border-box; // focus時に位置がずれるのを防ぐため
         color: $textcolor;
         display: inline-block;
-        height: 40px;
+        height: 100%;
         overflow: hidden;
         padding-left: 5px;
         padding-right: 5px;
         transition: background-color 0.1s linear;
         width: 100%;
         &:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.2); // ちょいハイライト
         }
         &:focus {
             border: 2px solid #ff9900;
@@ -66,24 +67,60 @@ $tableheight:300px;
     }
 }
 
-.sticky_table tbody th {
-    position: -webkit-sticky;
-    position: sticky;
-    left: 0;
-    z-index: 1;
-}
-
-.sticky_table thead {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-
-.sticky_table thead th.blank {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 3;
+.sticky_table {
+    display: block;
+    position: relative;
+    overflow: scroll;
+    width: 800px; // pxで指定しないと列がたくさんあるテーブルでおかしくなる
+    height: $tableheight;
+    border-collapse: collapse;
+    font-size: 0;
+    thead {
+        @include max-content-block;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        tr {
+            background-color: rgba(26, 26, 26, 0.8); // 行のための不透明度
+            border-bottom: 3px $bordercolor;
+            th {
+                // 上の見出し
+                height: $cellheight;
+                width: $cellwidth;
+                font-size: 1.0rem;
+                &.blank {
+                    background-color: rgba(26, 26, 26, 0.8); // ここは不透明にしないといけない
+                    position: -webkit-sticky;
+                    position: sticky;
+                    top: 0;
+                    left: 0;
+                    z-index: 3;
+                }
+            }
+        }
+    }
+    tbody {
+        @include max-content-block;
+        tr {
+            border-bottom: 1px $bordercolor solid;
+            th {
+                // 左の見出し
+                @include input-cells;
+                background-color: rgba(26, 26, 26, 0.8); //ほぼ不透明にする
+                position: -webkit-sticky;
+                position: sticky;
+                left: 0;
+                z-index: 1;
+            }
+            td {
+                @include input-cells;
+                background-color: rgba(50, 50, 50, 0.8);
+                &:nth-child(odd) {
+                    // 奇数列
+                    background-color: rgba(26, 26, 26, 0.8);
+                }
+            }
+        }
+    }
 }

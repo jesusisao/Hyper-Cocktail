@@ -26,3 +26,20 @@ $cocktail-app-theme: mat-dark-theme($cocktail-app-primary, $cocktail-app-accent,
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($cocktail-app-theme);
+
+//スクロールバー
+::-webkit-scrollbar {
+    width: 10px;
+    &:horizontal {
+        height: 10px;
+    }
+}
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2); 
+}
+::-webkit-scrollbar-corner {
+    background: rgba(255, 255, 255, 0);
+}

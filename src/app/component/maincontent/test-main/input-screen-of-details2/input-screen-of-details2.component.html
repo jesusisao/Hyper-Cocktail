@@ -4,7 +4,7 @@
 
     <thead>
       <tr class="header">
-        <th class='line-no blank'>行番号</th>
+        <th class='blank' style="width:60px;">行番号</th>
         <th>商品コード</th>
         <th>商品名</th>
         <th>規格</th>
@@ -24,7 +24,7 @@
     <tbody>
       <ng-container *ngFor="let row of rows">
         <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)">
-          <th class='line-no'>
+          <th class='line-no' style="width:60px;">
             <input type=text [value]='tr.rowIndex' style="text-align: center;">
           </th>
           <td>
@@ -72,8 +72,9 @@
 
   </table>
 
-  <i class="material-icons" (click)="debugButtonClicked()">bug_report</i>
-  <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
-  <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
-
+  <div class="bottom-buttons">
+    <i class="material-icons" (click)="debugButtonClicked()">bug_report</i>
+    <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
+    <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
+  </div>
 </div>

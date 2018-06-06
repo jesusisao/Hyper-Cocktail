@@ -9,6 +9,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 export class InputScreenOfDetails2Component implements OnInit {
 
   static clickedRowindex: number;
+  private readonly defaultRowNum: number = 8;
+
   rows: Row[] = [];
   // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
   newrow: Row = { columnA: '', columnB: 0, columnC: '', columnD: '' };
@@ -17,7 +19,7 @@ export class InputScreenOfDetails2Component implements OnInit {
 
   ngOnInit() {
     InputScreenOfDetails2Component.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < this.defaultRowNum; i++) {
       this.rows.push(Object.assign({}, this.newrow));
     }
   }
