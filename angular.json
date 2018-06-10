@@ -22,8 +22,7 @@
             ],
             "styles": [
               "node_modules/normalize.css/normalize.css",
-              "src/styles.scss",
-              "src/app/style/sticky-table.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },

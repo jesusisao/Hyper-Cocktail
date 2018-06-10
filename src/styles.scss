@@ -8,7 +8,7 @@ body {
 //アイコン
 @import '~material-design-icons/iconfont/material-icons.css';
 @import '~@angular/material/theming';
-// Plus imports for other components in your app.
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -26,7 +26,6 @@ $cocktail-app-theme: mat-dark-theme($cocktail-app-primary, $cocktail-app-accent,
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($cocktail-app-theme);
-
 //スクロールバー
 ::-webkit-scrollbar {
     width: 10px;
@@ -34,12 +33,15 @@ $cocktail-app-theme: mat-dark-theme($cocktail-app-primary, $cocktail-app-accent,
         height: 10px;
     }
 }
+
 ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0);
 }
+
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2); 
+    background: rgba(255, 255, 255, 0.2);
 }
+
 ::-webkit-scrollbar-corner {
     background: rgba(255, 255, 255, 0);
 }
