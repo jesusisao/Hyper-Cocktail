@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import {
+  Http, ConnectionBackend,
+  RequestOptions, BaseRequestOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 import { TodoListComponent } from './todo-list.component';
 
 describe('TodoListComponent', () => {
@@ -10,6 +14,10 @@ describe('TodoListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TodoListComponent],
       imports: [FormsModule],
+      providers: [
+        { provide: ConnectionBackend, useClass: MockBackend },
+        { provide: RequestOptions, useClass: BaseRequestOptions },
+        Http]
     })
     .compileComponents();
   }));
