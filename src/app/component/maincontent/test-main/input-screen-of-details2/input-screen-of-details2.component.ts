@@ -9,9 +9,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 export class InputScreenOfDetails2Component implements OnInit {
 
   static clickedRowindex: number;
-  private readonly defaultRowNum: number = 8;
+  private readonly defaultRowNum: number = 8; // 初期表示する行数
 
-  rows: Row[] = [];
+  rows: Row[] = []; // ここに表の中身の値が配列として入る
   // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
   newrow: Row = { columnA: '', columnB: 0, columnC: '', columnD: '' };
 

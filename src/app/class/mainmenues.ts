@@ -21,12 +21,12 @@ export const MAINMENUES: Mainmenu[] = [
     },
     {
         id: 102,
-        name: 'test2',
-        route: 'aaa',
+        name: 'Todo List',
+        route: '/todo-list',
         description: 'テスト説明文',
         sortNum: 12,
         color: 'rgba(65,22,124,0.7)',
-        icon: 'add'
+        icon: 'list'
     },
     {
         id: 103,

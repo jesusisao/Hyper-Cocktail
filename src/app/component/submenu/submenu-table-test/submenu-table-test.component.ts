@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Submenu } from '../../../class/submenu';
 
 @Component({
   selector: 'app-submenu-table-test',
-  templateUrl: './submenu-table-test.component.html',
-  styleUrls: ['./submenu-table-test.component.scss']
+  templateUrl: '../submenu.html',
+  styleUrls: ['../submenu.scss']
 })
 export class SubmenuTableTestComponent implements OnInit {
 
@@ -20,14 +21,7 @@ export class SubmenuTableTestComponent implements OnInit {
     // コンテンツの初期表示
     this.router.navigate([{ outlets: { maincontent: 'test/mat-table-test' } }]);
   }
-}
 
-export interface Submenu {
-  id: number;
-  name: string;
-  route: string;
-  description: string;
-  sortNum: number;
 }
 
 export const SUBMENUES: Submenu[] = [

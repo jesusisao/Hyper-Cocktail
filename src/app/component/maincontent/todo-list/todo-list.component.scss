@@ -1,0 +1,9 @@
+@import '~app/style/sticky-table';
+:host {
+    color: #ccc;
+    max-width: 100%;
+}
+
+.all-wrapper {
+    @include sticky-table-wrapper(400px, 1000px, 40px, 160px);
+}

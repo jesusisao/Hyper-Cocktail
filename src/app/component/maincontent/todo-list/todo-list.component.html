@@ -1,0 +1,48 @@
+<div class="all-wrapper">
+  <label for="inputDetails">やることリスト</label>
+  <table class="sticky_table">
+
+    <thead>
+      <tr class="header">
+        <th class='blank' style="width:60px;">行番号</th>
+        <th>タスク名</th>
+        <th>説明</th>
+        <th>ステータス</th>
+        <th>作成日</th>
+        <th>更新日</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let row of rows">
+        <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)">
+          <th class='line-no' style="width:60px;">
+            <input type=text [value]='tr.rowIndex' style="text-align: center;">
+          </th>
+          <td>
+            <input type=text [(ngModel)]='row.task_name'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.description'>
+          </td>
+          <td>
+            <input type=number [(ngModel)]='row.status'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.created_at'>
+          </td>
+          <td>
+            <input type=text [(ngModel)]='row.updated_at'>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+
+  </table>
+
+  <div class="bottom-buttons">
+    <i class="material-icons" (click)="debugButtonClicked()">bug_report</i>
+    <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
+    <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
+  </div>
+</div>

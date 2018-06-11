@@ -3,18 +3,20 @@ import { Router } from '@angular/router';
 import { Submenu } from '../../../class/submenu';
 
 @Component({
-  selector: 'app-submenu-file-generator',
+  selector: 'app-submenu-todo-list',
   templateUrl: '../submenu.html',
   styleUrls: ['../submenu.scss']
 })
-export class SubmenuFileGeneratorComponent implements OnInit {
+
+export class SubmenuTodoListComponent implements OnInit {
 
   submenues: Submenu[] = SUBMENUES;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.router.navigate([{ outlets: { maincontent: 'file-generator/main' } }]);
+    // コンテンツの初期表示
+    this.router.navigate([{ outlets: { maincontent: 'todo-list/main' } }]);
   }
 
   onclick(routeOfSubmenu: string) {
@@ -24,5 +26,5 @@ export class SubmenuFileGeneratorComponent implements OnInit {
 }
 
 export const SUBMENUES: Submenu[] = [
-  { id: 100, name: 'File Generator', route: 'file-generator/main', description: 'テスト説明文', sortNum: 10 }
+  { id: 100, name: 'Todo List', route: 'todo-list/main', description: 'テスト説明文', sortNum: 10 }
 ];

@@ -34,6 +34,8 @@ import { ZipValidator } from './directive/zip.validator';
 import { DetailsTableComponent } from './component/common/details-table/details-table.component';
 // tslint:disable-next-line:max-line-length
 import { InputScreenOfDetails2Component } from './component/maincontent/test-main/input-screen-of-details2/input-screen-of-details2.component';
+import { TodoListComponent } from './component/maincontent/todo-list/todo-list.component';
+import { SubmenuTodoListComponent } from './component/submenu/submenu-todo-list/submenu-todo-list.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { InputScreenOfDetails2Component } from './component/maincontent/test-mai
     ZipValidator,
     DetailsTableComponent,
     InputScreenOfDetails2Component,
+    TodoListComponent,
+    SubmenuTodoListComponent,
   ],
   imports: [
     AngularSplitModule,
