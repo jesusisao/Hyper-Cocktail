@@ -11,7 +11,7 @@ export class TodoListComponent implements OnInit {
 
   private static clickedRowindex: number;
   private static readonly defaultRowNum: number = 8; // 初期表示する行数
-  private rows: Row[] = []; // ここに表の中身の値が配列として保持される。
+  public rows: Row[] = []; // ここに表の中身の値が配列として保持される。
 
   // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
   private readonly newrow: Row = { id: 0, task_name: '', description: '', status: '', is_deleted: '', created_at: null, updated_at: null };
