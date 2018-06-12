@@ -4,7 +4,7 @@
 
     <thead>
       <tr class="header">
-        <th class='blank' style="width:60px;">行番号</th>
+        <th class='blank' style="width:60px;">№</th>
         <th style="width:250px;">タスク名</th>
         <th style="width:400px;">説明</th>
         <th>ステータス</th>
@@ -20,13 +20,18 @@
             <input type=text [value]='tr.rowIndex' style="text-align: center;" disabled="disabled">
           </th>
           <td  style="width:250px;">
-            <input type=text [(ngModel)]='row.task_name'>
+            <input type=text [(ngModel)]='row.task_name' required>
           </td>
           <td  style="width:400px;">
             <input type=text [(ngModel)]='row.description'>
           </td>
           <td>
-            <input type=number [(ngModel)]='row.status'>
+            <select [(ngModel)]='row.status'>
+              <option value="0">未完了</option>
+              <option value="1">実行中</option>
+              <option value="2">完了</option>
+            </select>
+            <i class="material-icons">keyboard_arrow_down</i>
           </td>
           <td>
             <input type=text [(ngModel)]='row.created_at' disabled="disabled">

@@ -14,7 +14,7 @@ export class TodoListComponent implements OnInit {
   public rows: Row[] = []; // ここに表の中身の値が配列として保持される。
 
   // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
-  private readonly newrow: Row = { id: 0, task_name: '', description: '', status: '', is_deleted: '', created_at: null, updated_at: null };
+  private readonly newrow: Row = { id: 0, task_name: '', description: '', status: '0', is_deleted: '', created_at: '', updated_at: '' };
 
   constructor(private cd: ChangeDetectorRef, private http: Http) { }
 
@@ -39,15 +39,19 @@ export class TodoListComponent implements OnInit {
               updated_at: this.datetimeToYYYYMMdd(json.updated_at)
             });
           });
+          // 指定行未満の場合は空欄行の追加
+          if (this.rows.length < TodoListComponent.defaultRowNum) {
+            const spaceRowNum: number = TodoListComponent.defaultRowNum - this.rows.length;
+            for (let i = 0; i < spaceRowNum; i++) {
+              this.rows.push(Object.assign({}, this.newrow));
+            }
+          }
         },
         err => {
           console.error(err);
         }
       );
 
-    // for (let i = 0; i < this.defaultRowNum; i++) {
-    //   this.rows.push(Object.assign({}, this.newrow));
-    // }
   }
 
   // MySQLのdatetimeをYYYY/MM/DDに変更する。

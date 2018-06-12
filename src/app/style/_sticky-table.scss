@@ -30,7 +30,7 @@ $backgroundcolor:rgba(0, 0, 0, 0.1);
     }
 }
 
-@mixin max-content-block {
+@mixin max-content-block() {
     display: block;
     width: -webkit-max-content;
     width: -moz-max-content;
@@ -56,10 +56,7 @@ $backgroundcolor:rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
             th {
                 // 上の見出し
-                box-sizing: border-box;
-                height: $cellheight;
-                width: $cellwidth;
-                font-size: 1.0rem;
+                @include cell-block($cellheight, $cellwidth);
                 &.blank {
                     background-color: rgba(26, 26, 26, 0.8); // ここは不透明にしないといけない
                     position: -webkit-sticky;
@@ -79,7 +76,9 @@ $backgroundcolor:rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
             th {
                 // 左の見出し
-                @include input-cells($cellheight, $cellwidth);
+                @include cell-block($cellheight, $cellwidth);
+                @include input();
+                @include select();
                 background-color: rgba(26, 26, 26, 0.8); //ほぼ不透明にする
                 position: -webkit-sticky;
                 position: sticky;
@@ -87,7 +86,10 @@ $backgroundcolor:rgba(0, 0, 0, 0.1);
                 z-index: 1;
             }
             td {
-                @include input-cells($cellheight, $cellwidth);
+                @include cell-block($cellheight, $cellwidth);
+                @include input();
+                @include select();
+                @include cell-icon();
                 background-color: rgba(50, 50, 50, 0.8);
                 &:nth-child(odd) {
                     // 奇数列
@@ -98,16 +100,18 @@ $backgroundcolor:rgba(0, 0, 0, 0.1);
     }
 }
 
-@mixin input-cells($cellheight, $cellwidth) {
+@mixin cell-block($cellheight, $cellwidth) {
+    position: relative;
     box-sizing: border-box;
-    display: inline-block;
     height: $cellheight;
     width: $cellwidth;
     font-size: 1.0rem;
+}
+
+@mixin input() {
     input {
-        background-color: rgba(255, 255, 255, 0); // 透明
-        border: 2px solid rgba(255, 255, 255, 0); // 透明
-        box-sizing: border-box; // focus時に位置がずれるのを防ぐため
+        background: none transparent;
+        box-sizing: border-box;
         color: $textcolor;
         display: inline-block;
         height: 100%;
@@ -116,12 +120,60 @@ $backgroundcolor:rgba(0, 0, 0, 0.1);
         padding-right: 5px;
         transition: background-color 0.1s linear;
         width: 100%;
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.2); // ちょいハイライト
-        }
-        &:focus {
-            border: 2px solid #ff9900;
-            outline: 0;
-        }
+        @include highlight();
+    }
+}
+
+@mixin select() {
+    select {
+        border: none;
+        box-sizing: border-box;
+        display: inline-block;
+        outline: none;
+        text-indent: 0.01px;
+        text-overflow: '';
+        background: none transparent;
+        text-align: center;
+        font-size: inherit;
+        color: inherit;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        height: 100%;
+        width: 100%;
+        @include highlight();
+    }
+    select option {
+        color: #333;
+    }
+    select::-ms-expand {
+        display: none;
+    }
+    select:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #828c9a;
+    }
+}
+
+@mixin cell-icon() {
+    i {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        pointer-events: none;
+    }
+}
+
+@mixin highlight() {
+    border: 2px solid rgba(255, 255, 255, 0); // 透明
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2); // ちょいハイライト
+    }
+    &:hover:disabled {
+        background: none transparent;
+    }
+    &:focus {
+        border: 2px solid #ff9900;
+        outline: 0;
     }
 }
