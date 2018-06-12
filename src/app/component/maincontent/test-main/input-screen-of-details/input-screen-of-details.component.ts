@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DetailsTableComponent } from '../../../common/details-table/details-table.component';
 
 @Component({
   selector: 'app-input-screen-of-details',

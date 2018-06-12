@@ -105,11 +105,3 @@ $tableheight:300px; // tableの高さ
         }
     }
 }
-
-thead {
-    display: table;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
