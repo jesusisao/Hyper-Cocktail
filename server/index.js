@@ -3,14 +3,11 @@ const compression = require('compression');
 const path = require('path');
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser')
 // api
 const todolist = require('./routes/todolist')
 const user = require('./routes/user')
 
-// postの前準備。expressはそのままではリクエストのbodyをパースできないため。
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
 
 // 静的リソースの圧縮をgzipで行う。圧縮レベルはzlibのデフォルトの6。
 app.use(compression());

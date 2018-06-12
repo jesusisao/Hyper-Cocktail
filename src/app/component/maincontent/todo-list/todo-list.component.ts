@@ -11,10 +11,11 @@ export class TodoListComponent implements OnInit {
 
   private static clickedRowindex: number;
   private static readonly defaultRowNum: number = 8; // 初期表示する行数
-  public rows: Row[] = []; // ここに表の中身の値が配列として保持される。
+  public rows: TodoListRow[] = []; // ここに表の中身の値が配列として保持される。
 
   // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
-  private readonly newrow: Row = { id: 0, task_name: '', description: '', status: '0', is_deleted: '', created_at: '', updated_at: '' };
+  // tslint:disable-next-line:max-line-length
+  private readonly newrow: TodoListRow = { id: 0, task_name: '', description: '', status: '0', is_deleted: '', created_at: '', updated_at: '' };
 
   constructor(private cd: ChangeDetectorRef, private http: Http) { }
 
@@ -83,6 +84,25 @@ export class TodoListComponent implements OnInit {
     console.log(this.rows);
   }
 
+  postButtonClicked() {
+    const sendRows: TodoListRow[] = [];
+    this.rows.forEach(val => {
+      // 適切じゃない行はここではじく
+      if (val.task_name.trim() !== '') {
+        sendRows.push(Object.assign({}, val));
+      }
+    });
+    this.http.post('/todolist', sendRows)
+      .subscribe(
+        res => {
+          console.log('OK.');
+        },
+        err => {
+          console.log('NG.');
+        }
+      );
+  }
+
   clickedRowindexUpdate(index: number) {
     TodoListComponent.clickedRowindex = index;
     console.log(TodoListComponent.clickedRowindex);
@@ -98,7 +118,7 @@ export class TodoListComponent implements OnInit {
   }
 }
 
-export interface Row {
+export interface TodoListRow {
   id: number;
   task_name: string;
   description: string;
