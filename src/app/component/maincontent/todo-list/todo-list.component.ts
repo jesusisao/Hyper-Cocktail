@@ -35,8 +35,8 @@ export class TodoListComponent implements OnInit {
               description: json.description,
               status: json.status,
               is_deleted: json.is_deleted,
-              created_at: json.created_at,
-              updated_at: json.updated_at
+              created_at: this.datetimeToYYYYMMdd(json.created_at),
+              updated_at: this.datetimeToYYYYMMdd(json.updated_at)
             });
           });
         },
@@ -48,6 +48,14 @@ export class TodoListComponent implements OnInit {
     // for (let i = 0; i < this.defaultRowNum; i++) {
     //   this.rows.push(Object.assign({}, this.newrow));
     // }
+  }
+
+  // MySQLのdatetimeをYYYY/MM/DDに変更する。
+  private datetimeToYYYYMMdd(dt: string): string {
+    const YYYY = dt.slice(0, 4);
+    const MM = dt.slice(5, 7);
+    const dd = dt.slice(8, 10);
+    return YYYY + '/' + MM + '/' + dd;
   }
 
   addButtonClicked() {
@@ -92,6 +100,6 @@ export interface Row {
   description: string;
   status: string;
   is_deleted: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
