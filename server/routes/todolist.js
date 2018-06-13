@@ -33,9 +33,11 @@ router.post('/', function (req, res) {
             
             if (error) {
                 // 見つからなかったので新しいレコードとして登録
+                console.log(el + 'new');
                 affectedRowNum += insertTodoList(el);
             } else {
                 // 既存レコードを更新
+                console.log(el + 'update');
                 affectedRowNum += updateTodoList(el);
             };
             
