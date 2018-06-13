@@ -105,7 +105,6 @@ export class TodoListComponent implements OnInit {
 
   clickedRowindexUpdate(index: number) {
     TodoListComponent.clickedRowindex = index;
-    console.log(TodoListComponent.clickedRowindex);
   }
 
   doEditTheLastRow(): boolean {

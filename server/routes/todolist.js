@@ -21,50 +21,57 @@ router.get('/', function (req, res) {
 
 // POST method route
 router.post('/', function (req, res) {
-
-    console.log(req.body); // 後で消す    
     const reqRows = req.body; // リクエストのjson配列
-    let affectedRowNum = 0;
-    reqRows.forEach(el => {
-        pool.query({
-            sql: 'SELECT * FROM todo_lists WHERE id = ?',
-            values: [el.id] // ここでバインド
-        }, function (error, rows, fields) {
-            
-            if (error) {
+    const query = 'SELECT * FROM todo_lists';
+    pool.query(query, async function (error, dbRows, fields) {
+         //dbRowsにはDB取得結果がガサっと入ってる。
+        if (error) throw error;
+        let affectedRowNum = 0;
+        const reqRowsForInsert = [];
+        const reqRowsForUpdate = [];
+        reqRows.forEach(reqRow => {
+            // テーブルにidある？
+            const row = dbRows.filter(row => row.id == reqRow.id)
+            if (JSON.stringify(row) == JSON.stringify([])) {
                 // 見つからなかったので新しいレコードとして登録
-                console.log(el + 'new');
-                affectedRowNum += insertTodoList(el);
+                reqRowsForInsert.push(reqRow);
             } else {
                 // 既存レコードを更新
-                console.log(el + 'update');
-                affectedRowNum += updateTodoList(el);
+                reqRowsForUpdate.push(reqRow);
             };
-            
-        });
-    }, function () {
-        res.send(affectedRowNum);
+        })
+        await insertTodoList(reqRowsForInsert);
+        await updateTodoList(reqRowsForUpdate);
     });
-    
 });
 
-async function insertTodoList(todoRow) {
+async function insertTodoList(rows) {
+    const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
+    rows.forEach(row => {
+        params.push([row.task_name, row.description, row.status]);
+    });
+    console.log(params);
     pool.query({
         sql: 'INSERT INTO todo_lists(task_name,description,status) VALUES(?,?,?)',
-        values: [todoRow.task_name, todoRow.description, todoRow.status] // ここでバインド
+        values: params
     }, function (error, rows, fields) {
         if (error) throw error;
-        return rows.changedRows;
+        return Promise.resolve(rows.changedRows);
     });
 }
 
-async  function updateTodoList(todoRow) {
+async function updateTodoList(rows) {
+    const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
+    rows.forEach(row => {
+        params.push([row.task_name, row.description, row.status, row.id]);
+    });
+    console.log(params);
     pool.query({
         sql: 'UPDATE todo_lists SET task_name = ?, description = ?, status = ? WHERE id = ?',
-        values: [todoRow.task_name, todoRow.description, todoRow.status, todoRow.id] // ここでバインド
+        values: params
     }, function (error, rows, fields) {
         if (error) throw error;
-        return rows.changedRows;
+        return Promise.resolve(rows.changedRows);
     });
 }
 
