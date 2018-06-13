@@ -21,10 +21,49 @@ router.get('/', function (req, res) {
 
 // POST method route
 router.post('/', function (req, res) {
-    console.log(req.body);
-    const rows = req.body;
-    res.send('POST is success');
+
+    console.log(req.body); // 後で消す    
+    const reqRows = req.body; // リクエストのjson配列
+    let affectedRowNum = 0;
+    reqRows.forEach(el => {
+        pool.query({
+            sql: 'SELECT * FROM todo_lists WHERE id = ?',
+            values: [el.id] // ここでバインド
+        }, function (error, rows, fields) {
+            
+            if (error) {
+                // 見つからなかったので新しいレコードとして登録
+                affectedRowNum += insertTodoList(el);
+            } else {
+                // 既存レコードを更新
+                affectedRowNum += updateTodoList(el);
+            };
+            
+        });
+    }, function () {
+        res.send(affectedRowNum);
+    });
+    
 });
 
+async function insertTodoList(todoRow) {
+    pool.query({
+        sql: 'INSERT INTO todo_lists(task_name,description,status) VALUES(?,?,?)',
+        values: [todoRow.task_name, todoRow.description, todoRow.status] // ここでバインド
+    }, function (error, rows, fields) {
+        if (error) throw error;
+        return rows.changedRows;
+    });
+}
+
+async  function updateTodoList(todoRow) {
+    pool.query({
+        sql: 'UPDATE todo_lists SET task_name = ?, description = ?, status = ? WHERE id = ?',
+        values: [todoRow.task_name, todoRow.description, todoRow.status, todoRow.id] // ここでバインド
+    }, function (error, rows, fields) {
+        if (error) throw error;
+        return rows.changedRows;
+    });
+}
 
 module.exports = router;
