@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { TodoListRow } from '@app/class/todolistrow';
 
 @Component({
   selector: 'app-todo-list',
@@ -115,14 +116,4 @@ export class TodoListComponent implements OnInit {
     }
     return false;
   }
-}
-
-export interface TodoListRow {
-  id: number;
-  task_name: string;
-  description: string;
-  status: string;
-  is_deleted: string;
-  created_at: string;
-  updated_at: string;
 }
