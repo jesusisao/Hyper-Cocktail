@@ -42,8 +42,11 @@ router.post('/', function (req, res) {
                 reqRowsForUpdate.push(reqRow);
             };
         })
-        await insertTodoList(reqRowsForInsert);
-        await updateTodoList(reqRowsForUpdate);
+        const insertNum = await insertTodoList(reqRowsForInsert);
+        const updateNum = await updateTodoList(reqRowsForUpdate);
+        console.log(insertNum);
+        console.log(updateNum);
+        res.send({ 'affectedRowNum': affectedRowNum });
     });
 });
 
@@ -52,11 +55,13 @@ async function insertTodoList(rows) {
     rows.forEach(row => {
         params.push([row.task_name, row.description, row.status]);
     });
-    console.log(params);
-    pool.query({
-        sql: `INSERT INTO todo_lists(task_name,description,status) VALUES ? `,
-        values: params
-    }, function (error, rows, fields) {
+
+    let queries = '';
+    params.forEach(param => {
+        queries += mysql.format('INSERT INTO todo_lists(task_name,description,status) VALUES (?, ?, ?);', param);
+    });
+
+    pool.query(queries, function (error, rows, fields) {
         if (error) throw error;
         return Promise.resolve(rows.changedRows);
     });
@@ -67,7 +72,6 @@ async function updateTodoList(rows) {
     rows.forEach(row => {
         params.push([row.task_name, row.description, row.status, row.id]);
     });
-    console.log(params);
 
     // update文生成。デフォルトだとbulk updateをサポートしていないため。
     let queries = '';
@@ -77,6 +81,7 @@ async function updateTodoList(rows) {
 
     pool.query(queries, function (error, rows, fields) {
         if (error) throw error;
+        console.log(rows);
         return Promise.resolve(rows.changedRows);
     });
 }

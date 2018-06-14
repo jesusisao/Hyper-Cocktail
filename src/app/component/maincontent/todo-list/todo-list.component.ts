@@ -95,10 +95,10 @@ export class TodoListComponent implements OnInit {
     this.http.post('/todolist', sendRows)
       .subscribe(
         res => {
-          console.log('OK.');
+          console.log(res);
         },
         err => {
-          console.log('NG.');
+          console.error(err);
         }
       );
   }
