@@ -44,46 +44,56 @@ router.post('/', function (req, res) {
         })
         const insertNum = await insertTodoList(reqRowsForInsert);
         const updateNum = await updateTodoList(reqRowsForUpdate);
-        console.log(insertNum);
-        console.log(updateNum);
-        res.send({ 'affectedRowNum': affectedRowNum });
+        res.send({
+            'insertNum': insertNum,
+            'updateNum': updateNum
+        });
     });
 });
 
 async function insertTodoList(rows) {
-    const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
-    rows.forEach(row => {
-        params.push([row.task_name, row.description, row.status]);
-    });
+    return new Promise((resolve, reject) => {
+        if (JSON.stringify(rows) == JSON.stringify([])) return resolve(0);
+        const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
+        rows.forEach(row => {
+            params.push([row.task_name, row.description, row.status]);
+        });
 
-    let queries = '';
-    params.forEach(param => {
-        queries += mysql.format('INSERT INTO todo_lists(task_name,description,status) VALUES (?, ?, ?);', param);
-    });
+        let queries = '';
+        params.forEach(param => {
+            queries += mysql.format('INSERT INTO todo_lists(task_name,description,status) VALUES (?, ?, ?);', param);
+        });
 
-    pool.query(queries, function (error, rows, fields) {
-        if (error) throw error;
-        return Promise.resolve(rows.changedRows);
-    });
+        pool.query(queries, (error, rows, fields) => {
+            if (error) throw error;
+        });
+        return resolve(params.length);
+    })
 }
 
 async function updateTodoList(rows) {
-    const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
-    rows.forEach(row => {
-        params.push([row.task_name, row.description, row.status, row.id]);
-    });
+    return new Promise((resolve, reject) => {
+        if (JSON.stringify(rows) == JSON.stringify([])) return resolve(0);
+        const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
+        rows.forEach(row => {
+            params.push([row.task_name, row.description, row.status, row.id]);
+        });
 
-    // update文生成。デフォルトだとbulk updateをサポートしていないため。
-    let queries = '';
-    params.forEach(param => {
-        queries += mysql.format('UPDATE todo_lists SET task_name = ?, description = ?, status = ? WHERE id = ?;', param);
-    });
+        // update文生成。デフォルトだとbulk updateをサポートしていない。
+        let queries = '';
+        params.forEach(param => {
+            queries += mysql.format('UPDATE todo_lists SET task_name = ?, description = ?, status = ? WHERE id = ?;', param);
+        });
 
-    pool.query(queries, function (error, rows, fields) {
-        if (error) throw error;
-        console.log(rows);
-        return Promise.resolve(rows.changedRows);
-    });
+        pool.query(queries, (error, rows, fields) => {
+            let changedRowsNum = 0;
+            if (error) throw error;
+            rows.forEach(row => {
+                changedRowsNum += row.changedRows;
+            });
+            return resolve(changedRowsNum);
+        });
+    })
 }
 
 module.exports = router;
