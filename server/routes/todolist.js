@@ -9,15 +9,15 @@ router.use(bodyParser.json());
 
 // JAWSDB_URLはJAWSDBを入れた時にHeroku側でデフォルトで作られるNodeの環境変数。
 // そいつの中に接続情報が入ってる。
-// multipleStatementsはUpdateを一括実行するため追加。
+// multipleStatementsはUpdateなどを一括実行するため追加。
 var pool = mysql.createPool(process.env.JAWSDB_URL + '?multipleStatements=true');
 
 // 一括で取得する
 router.get('/', function (req, res) {
-    const query = 'SELECT * FROM todo_lists';
+    const query = 'SELECT * FROM todo_lists WHERE is_deleted = 0';
     pool.query(query, function (error, rows, fields) {
         if (error) throw error;
-        res.json(rows)
+        res.json(rows);
     });
 });
 
@@ -28,25 +28,38 @@ router.post('/', function (req, res) {
     pool.query(query, async function (error, dbRows, fields) {
         //dbRowsにはDB取得結果がガサっと入ってる。
         if (error) throw error;
-        let affectedRowNum = 0;
         const reqRowsForInsert = [];
         const reqRowsForUpdate = [];
         reqRows.forEach(reqRow => {
             // テーブルにidある？
-            const row = dbRows.filter(row => row.id == reqRow.id)
-            if (JSON.stringify(row) == JSON.stringify([])) {
-                // 見つからなかったので新しいレコードとして登録
+            const dbRow = dbRows.filter(dbRow => dbRow.id == reqRow.id)
+            if (JSON.stringify(dbRow) == JSON.stringify([])) {
+                // 新規用配列
                 reqRowsForInsert.push(reqRow);
             } else {
-                // 既存レコードを更新
+                // 更新用配列
                 reqRowsForUpdate.push(reqRow);
             };
-        })
-        const insertNum = await insertTodoList(reqRowsForInsert);
-        const updateNum = await updateTodoList(reqRowsForUpdate);
-        res.send({
+        });
+        const insertNum = await insertTodoList(reqRowsForInsert); // 新規登録処理
+        const updateNum = await updateTodoList(reqRowsForUpdate); // 更新処理
+        res.json({
             'insertNum': insertNum,
             'updateNum': updateNum
+        });
+    });
+});
+
+// 削除
+router.delete('/:id', function (req, res) {
+    const reqId = req.params.id;
+    const param = [reqId];
+    const query = mysql.format('UPDATE todo_lists SET is_deleted = 1 WHERE id = ?;', param);
+    pool.query(query, async (error, result, fields) => {
+        if (error) throw error;
+        const deletedNum = result.affectedRows;
+        res.json({
+            'deletedNum': deletedNum
         });
     });
 });
@@ -65,10 +78,14 @@ async function insertTodoList(rows) {
         });
 
         pool.query(queries, (error, rows, fields) => {
-            if (error) throw error;
+            if (error) reject(error);
+            let affectedRowsNum = 0;
+            rows.forEach(row => {
+                affectedRowsNum += row.affectedRows;
+            });
+            return resolve(affectedRowsNum);
         });
-        return resolve(params.length);
-    })
+    });
 }
 
 async function updateTodoList(rows) {
@@ -87,13 +104,37 @@ async function updateTodoList(rows) {
 
         pool.query(queries, (error, rows, fields) => {
             let changedRowsNum = 0;
-            if (error) throw error;
+            if (error) reject(error);
             rows.forEach(row => {
                 changedRowsNum += row.changedRows;
             });
             return resolve(changedRowsNum);
         });
-    })
+    });
 }
+
+// async function deleteTodoList(rows) {
+//     return new Promise((resolve, reject) => {
+//         if (JSON.stringify(rows) == JSON.stringify([])) return resolve(0);
+//         const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
+//         rows.forEach(row => {
+//             params.push(['1', row.id]);
+//         });
+
+//         let queries = '';
+//         params.forEach(param => {
+//             queries += mysql.format('UPDATE todo_lists SET is_deleted = ?? WHERE id = ?;', param);
+//         });
+
+//         pool.query(queries, (error, rows, fields) => {
+//             let affectedRowsNum = 0;
+//             if (error) reject(error);
+//             rows.forEach(row => {
+//                 affectedRowsNum += row.affectedRows;
+//             });
+//             return resolve(affectedRowsNum);
+//         });
+//     });
+// }
 
 module.exports = router;

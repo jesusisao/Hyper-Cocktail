@@ -9,9 +9,10 @@ import { TodolistService } from '@app/service/todolist.service';
 })
 export class TodoListComponent implements OnInit {
 
-  private static clickedRowindex: number;
   private static readonly defaultRowNum: number = 8; // 初期表示する行数
+  private clickedRowindex: number;
   public rows: TodoList[] = []; // ここに表の中身の値が配列として保持される。
+  public pointerEvents: string;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -19,8 +20,12 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    TodoListComponent.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
+    this.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
+    this.initRows();
+  }
 
+  private initRows() {
+    this.rows = [];
     this.todolistService.getReqTodoList()
       .subscribe(
         res => {
@@ -28,18 +33,22 @@ export class TodoListComponent implements OnInit {
           resRowArray.forEach((resRow) => {
             this.rows.push(new TodoList(resRow));
           });
-          // 指定行未満の場合は空欄行の追加
-          if (this.rows.length < TodoListComponent.defaultRowNum) {
-            const spaceRowNum: number = TodoListComponent.defaultRowNum - this.rows.length;
-            for (let i = 0; i < spaceRowNum; i++) {
-              this.rows.push(TodoList.getBlankRow());
-            }
-          }
+          this.addRowsForAppearance(this.rows.length);
         },
-        err => {
-          console.error(err);
-        }
+        err => console.error(err)
       );
+  }
+
+  private addRowsForAppearance(nowLength: number) {
+    // 指定行未満の場合は空欄行を追加する。
+    if (nowLength >= TodoListComponent.defaultRowNum) {
+      // 指定行より大きいなら何もしない。
+      return;
+    }
+    const spaceRowNum: number = TodoListComponent.defaultRowNum - nowLength;
+    for (let i = 0; i < spaceRowNum; i++) {
+      this.rows.push(TodoList.getBlankRow());
+    }
   }
 
   addButtonClicked() {
@@ -47,23 +56,27 @@ export class TodoListComponent implements OnInit {
       this.rows.push(TodoList.getBlankRow());
       return;
     }
-    this.rows.splice(TodoListComponent.clickedRowindex - 1, 0, TodoList.getBlankRow());
+    this.rows.splice(this.clickedRowindex - 1, 0, TodoList.getBlankRow());
   }
 
-  removeButtonClicked() {
+  hideButtonClicked() {
     if (this.doEditTheLastRow()) {
       this.rows.pop();
       return;
     }
-    this.rows.splice(TodoListComponent.clickedRowindex - 1, 1);
+    this.rows.splice(this.clickedRowindex - 1, 1);
     this.cd.detectChanges(); // ExpressionChangedAfterItHasBeenCheckedError回避のため
   }
 
   debugButtonClicked() {
     console.log(this.rows);
+    console.log('clickedRowindex:' + this.clickedRowindex);
+    console.log('clickedtask_name:' + this.rows[this.clickedRowindex - 1].task_name);
   }
 
   postButtonClicked() {
+    // style="pointer-events:none;"を一旦付与して、連打クリックをできなくする。
+    this.pointerEvents = 'none';
     const sendRows: TodoListRow[] = [];
     this.rows.forEach(row => {
       // 適切じゃない行はここではじく
@@ -75,21 +88,40 @@ export class TodoListComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
+          // 再読込作業が必要。そうでないと1度挿入した行もid=0のままのため、
+          // 2度目挿入する行との見分けがつかなくなる。
+          this.initRows();
         },
-        err => {
-          console.error(err);
-        }
+        err => console.error(err),
+        () => this.pointerEvents = 'auto' // 完了時に呼ばれる
+      );
+  }
+
+  deleteButtonClicked() {
+    if (this.rows[this.clickedRowindex - 1] === undefined) { return; } // 連続でクリックしたときのための処理
+    this.pointerEvents = 'none';
+    const deleteRowId: string = this.rows[this.clickedRowindex - 1].id + '';
+    this.todolistService.deleteReqTodoList(deleteRowId)
+      .subscribe(
+        res => {
+          console.log(res);
+          // 画面の行削除。再読込にすると今のカーソルの行から移動してしまうため。
+          this.rows.splice(this.clickedRowindex - 1, 1);
+          this.cd.detectChanges();
+        },
+        err => console.error(err),
+        () => this.pointerEvents = 'auto' // 完了時に呼ばれる
       );
   }
 
   clickedRowindexUpdate(index: number) {
-    TodoListComponent.clickedRowindex = index;
+    this.clickedRowindex = index;
   }
 
   doEditTheLastRow(): boolean {
-    if (TodoListComponent.clickedRowindex === undefined) {
+    if (this.clickedRowindex === undefined) {
       return true;
-    } else if (TodoListComponent.clickedRowindex >= this.rows.length) {
+    } else if (this.clickedRowindex >= this.rows.length) {
       return true;
     }
     return false;

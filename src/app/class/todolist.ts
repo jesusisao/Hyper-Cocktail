@@ -30,7 +30,8 @@ export class TodoList implements TodoListRow {
 
   public static getBlankRow(): TodoList {
     const blankRow: TodoListRow = {
-      id: 0, task_name: '',
+      id: 0,
+      task_name: '',
       description: '',
       status: '0',
       is_deleted: '',
@@ -42,11 +43,11 @@ export class TodoList implements TodoListRow {
 
   // MySQLのdatetimeをYYYY/MM/DDに変更する。
   private datetimeToYYYYMMdd(dt: string): string {
+    if (dt.trim() === '') { return ''; }
     const YYYY = dt.slice(0, 4);
     const MM = dt.slice(5, 7);
     const dd = dt.slice(8, 10);
     return YYYY + '/' + MM + '/' + dd;
   }
-
 
 }

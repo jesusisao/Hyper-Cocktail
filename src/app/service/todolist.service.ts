@@ -3,6 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Http, URLSearchParams } from '@angular/http';
 import { TodoListRow } from '@app/class/todolist';
+import 'rxjs/add/operator/finally';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,16 @@ export class TodolistService {
     return this.http // ここが関数へのreturn
       .post('/todolist', sendRows)
       .pipe(
+        map(res => res.json() || {}),
+        catchError(err => throwError(err.statusText))
+      );
+  }
+
+  deleteReqTodoList(id: string): Observable<any> {
+    return this.http // ここが関数へのreturn
+      .delete('/todolist/' + id)
+      .pipe(
+        map(res => res.json() || {}),
         catchError(err => throwError(err.statusText))
       );
   }

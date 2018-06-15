@@ -17,7 +17,7 @@
       <ng-container *ngFor="let row of rows">
         <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)">
           <th class='line-no' style="width:60px;">
-            <input type=text [value]='tr.rowIndex' style="text-align: center;" disabled="disabled">
+            <input type=text [value]='tr.rowIndex' style="text-align: center;" disabled>
           </th>
           <td  style="width:250px;">
             <input type=text [(ngModel)]='row.task_name' required>
@@ -34,10 +34,10 @@
             <i class="material-icons">keyboard_arrow_down</i>
           </td>
           <td>
-            <input type=text [(ngModel)]='row.created_at' disabled="disabled">
+            <input type=text [(ngModel)]='row.created_at' disabled>
           </td>
           <td>
-            <input type=text [(ngModel)]='row.updated_at' disabled="disabled">
+            <input type=text [(ngModel)]='row.updated_at' disabled>
           </td>
         </tr>
       </ng-container>
@@ -48,7 +48,8 @@
   <div class="bottom-buttons">
     <i class="material-icons" (click)="debugButtonClicked()">bug_report</i>
     <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
-    <i class="material-icons" (click)="removeButtonClicked()">remove_circle</i>
-    <i class="material-icons" (click)="postButtonClicked()">archive</i>
+    <i class="material-icons" (click)="hideButtonClicked()">remove_circle</i>
+    <i class="material-icons" (click)="postButtonClicked()" [style.pointer-events]="pointerEvents">sync</i>
+    <i class="material-icons" (click)="deleteButtonClicked()" [style.pointer-events]="pointerEvents">delete</i>
   </div>
 </div>

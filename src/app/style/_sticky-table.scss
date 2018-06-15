@@ -23,6 +23,7 @@ $backgroundcolor:rgba(0, 0, 0, 0.1);
         i {
             margin: 2px;
             transition: transform 0.5s ease-in;
+            user-select: none;
             &:hover {
                 transform: rotateZ(360deg)
             }
