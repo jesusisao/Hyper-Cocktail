@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Http } from '@angular/http';
-import { map } from 'rxjs/operators';
 import { TodoListRow } from '@app/class/todolistrow';
+import { TodolistService } from '@app/service/todolist.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -18,15 +17,15 @@ export class TodoListComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   private readonly newrow: TodoListRow = { id: 0, task_name: '', description: '', status: '0', is_deleted: '', created_at: '', updated_at: '' };
 
-  constructor(private cd: ChangeDetectorRef, private http: Http) { }
+  constructor(
+    private cd: ChangeDetectorRef,
+    private todolistService: TodolistService
+  ) { }
 
   ngOnInit() {
     TodoListComponent.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
 
-    this.http.get('/todolist', {
-      params: {}
-    })
-      .pipe(map(res => res.json()))
+    this.todolistService.getReqTodoList()
       .subscribe(
         res => {
           const resArray: any[] = res; // まず配列に突っ込む
@@ -53,7 +52,6 @@ export class TodoListComponent implements OnInit {
           console.error(err);
         }
       );
-
   }
 
   // MySQLのdatetimeをYYYY/MM/DDに変更する。
@@ -93,7 +91,7 @@ export class TodoListComponent implements OnInit {
         sendRows.push(Object.assign({}, val));
       }
     });
-    this.http.post('/todolist', sendRows)
+    this.todolistService.postReqTodoList(sendRows)
       .subscribe(
         res => {
           console.log(res);
