@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Http, URLSearchParams } from '@angular/http';
-import { TodoListRow } from '@app/class/todolistrow';
+import { TodoListRow } from '@app/class/todolist';
 
 @Injectable({
   providedIn: 'root'

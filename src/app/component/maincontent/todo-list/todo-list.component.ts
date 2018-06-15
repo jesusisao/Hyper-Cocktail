@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { TodoListRow } from '@app/class/todolistrow';
+import { TodoListRow, TodoList } from '@app/class/todolist';
 import { TodolistService } from '@app/service/todolist.service';
 
 @Component({
@@ -11,11 +11,7 @@ export class TodoListComponent implements OnInit {
 
   private static clickedRowindex: number;
   private static readonly defaultRowNum: number = 8; // 初期表示する行数
-  public rows: TodoListRow[] = []; // ここに表の中身の値が配列として保持される。
-
-  // newrowを使用する時はObject.assignでコピーして使うこと。そうでないと参照渡しになっちゃう。
-  // tslint:disable-next-line:max-line-length
-  private readonly newrow: TodoListRow = { id: 0, task_name: '', description: '', status: '0', is_deleted: '', created_at: '', updated_at: '' };
+  public rows: TodoList[] = []; // ここに表の中身の値が配列として保持される。
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -28,23 +24,15 @@ export class TodoListComponent implements OnInit {
     this.todolistService.getReqTodoList()
       .subscribe(
         res => {
-          const resArray: any[] = res; // まず配列に突っ込む
-          resArray.forEach((json) => {
-            this.rows.push({
-              id: json.id,
-              task_name: json.task_name,
-              description: json.description,
-              status: json.status,
-              is_deleted: json.is_deleted,
-              created_at: this.datetimeToYYYYMMdd(json.created_at),
-              updated_at: this.datetimeToYYYYMMdd(json.updated_at)
-            });
+          const resRowArray: any[] = res; // まず配列に突っ込む
+          resRowArray.forEach((resRow) => {
+            this.rows.push(new TodoList(resRow));
           });
           // 指定行未満の場合は空欄行の追加
           if (this.rows.length < TodoListComponent.defaultRowNum) {
             const spaceRowNum: number = TodoListComponent.defaultRowNum - this.rows.length;
             for (let i = 0; i < spaceRowNum; i++) {
-              this.rows.push(Object.assign({}, this.newrow));
+              this.rows.push(TodoList.getBlankRow());
             }
           }
         },
@@ -54,20 +42,12 @@ export class TodoListComponent implements OnInit {
       );
   }
 
-  // MySQLのdatetimeをYYYY/MM/DDに変更する。
-  private datetimeToYYYYMMdd(dt: string): string {
-    const YYYY = dt.slice(0, 4);
-    const MM = dt.slice(5, 7);
-    const dd = dt.slice(8, 10);
-    return YYYY + '/' + MM + '/' + dd;
-  }
-
   addButtonClicked() {
     if (this.doEditTheLastRow()) {
-      this.rows.push(Object.assign({}, this.newrow));
+      this.rows.push(TodoList.getBlankRow());
       return;
     }
-    this.rows.splice(TodoListComponent.clickedRowindex - 1, 0, Object.assign({}, this.newrow));
+    this.rows.splice(TodoListComponent.clickedRowindex - 1, 0, TodoList.getBlankRow());
   }
 
   removeButtonClicked() {
@@ -85,10 +65,10 @@ export class TodoListComponent implements OnInit {
 
   postButtonClicked() {
     const sendRows: TodoListRow[] = [];
-    this.rows.forEach(val => {
+    this.rows.forEach(row => {
       // 適切じゃない行はここではじく
-      if (val.task_name.trim() !== '') {
-        sendRows.push(Object.assign({}, val));
+      if (row.task_name.trim() !== '') {
+        sendRows.push(Object.assign({}, row));
       }
     });
     this.todolistService.postReqTodoList(sendRows)
