@@ -12,6 +12,10 @@ router.use(bodyParser.json());
 // multipleStatementsはUpdateなどを一括実行するため追加。
 var pool = mysql.createPool(process.env.JAWSDB_URL + '?multipleStatements=true');
 
+pool.on('connection', function onConnection(connection) {
+    connection.query('SET time_zone = ?', 'Asia/Tokyo');
+});
+
 // 一括で取得する
 router.get('/', function (req, res) {
     const query = 'SELECT * FROM todo_lists WHERE is_deleted = 0';
@@ -79,6 +83,7 @@ async function insertTodoList(rows) {
 
         pool.query(queries, (error, rows, fields) => {
             if (error) reject(error);
+            if (!Array.isArray(rows)) { rows = [rows]; }// 1個だけしか帰ってこないときは配列じゃないので無理やり配列にする。
             let affectedRowsNum = 0;
             rows.forEach(row => {
                 affectedRowsNum += row.affectedRows;
@@ -96,7 +101,6 @@ async function updateTodoList(rows) {
             params.push([row.task_name, row.description, row.status, row.id]);
         });
 
-        // update文生成。デフォルトだとbulk updateをサポートしていない。
         let queries = '';
         params.forEach(param => {
             queries += mysql.format('UPDATE todo_lists SET task_name = ?, description = ?, status = ? WHERE id = ?;', param);
@@ -112,29 +116,5 @@ async function updateTodoList(rows) {
         });
     });
 }
-
-// async function deleteTodoList(rows) {
-//     return new Promise((resolve, reject) => {
-//         if (JSON.stringify(rows) == JSON.stringify([])) return resolve(0);
-//         const params = []; // バインド用パラメータを格納。配列として挿入することで複数行の場合に対応する。
-//         rows.forEach(row => {
-//             params.push(['1', row.id]);
-//         });
-
-//         let queries = '';
-//         params.forEach(param => {
-//             queries += mysql.format('UPDATE todo_lists SET is_deleted = ?? WHERE id = ?;', param);
-//         });
-
-//         pool.query(queries, (error, rows, fields) => {
-//             let affectedRowsNum = 0;
-//             if (error) reject(error);
-//             rows.forEach(row => {
-//                 affectedRowsNum += row.affectedRows;
-//             });
-//             return resolve(affectedRowsNum);
-//         });
-//     });
-// }
 
 module.exports = router;
