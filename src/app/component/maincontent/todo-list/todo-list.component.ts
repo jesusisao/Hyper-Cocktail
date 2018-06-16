@@ -24,18 +24,19 @@ export class TodoListComponent implements OnInit {
     this.initRows();
   }
 
-  private initRows() {
-    this.rows = [];
+  private async initRows() {
     this.todolistService.getReqTodoList()
       .subscribe(
         res => {
+          this.rows = [];
           const resRowArray: any[] = res; // まず配列に突っ込む
           resRowArray.forEach((resRow) => {
             this.rows.push(new TodoList(resRow));
           });
           this.addRowsForAppearance(this.rows.length);
+          return Promise.resolve();
         },
-        err => console.error(err)
+        err => Promise.reject(err)
       );
   }
 
@@ -71,7 +72,15 @@ export class TodoListComponent implements OnInit {
   debugButtonClicked() {
     console.log(this.rows);
     console.log('clickedRowindex:' + this.clickedRowindex);
-    console.log('clickedtask_name:' + this.rows[this.clickedRowindex - 1].task_name);
+    if (this.rows[this.clickedRowindex - 1] !== undefined) {
+      console.log('clickedtask_name:' + this.rows[this.clickedRowindex - 1].task_name);
+    }
+  }
+
+  async refreshButtonClicked() {
+    this.pointerEvents = 'none';
+    await this.initRows();
+    this.pointerEvents = 'auto'; // 完了時に呼ばれる
   }
 
   postButtonClicked() {

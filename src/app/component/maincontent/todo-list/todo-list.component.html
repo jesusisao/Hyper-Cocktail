@@ -4,7 +4,7 @@
 
     <thead>
       <tr class="header">
-        <th class='blank' style="width:60px;">№</th>
+        <th class='blank' style="width:60px;">行№</th>
         <th style="width:250px;">タスク名</th>
         <th style="width:400px;">説明</th>
         <th>ステータス</th>
@@ -46,10 +46,11 @@
   </table>
 
   <div class="bottom-buttons">
-    <i class="material-icons" (click)="debugButtonClicked()">bug_report</i>
-    <i class="material-icons" (click)="addButtonClicked()">add_circle</i>
-    <i class="material-icons" (click)="hideButtonClicked()">remove_circle</i>
-    <i class="material-icons" (click)="postButtonClicked()" [style.pointer-events]="pointerEvents">sync</i>
-    <i class="material-icons" (click)="deleteButtonClicked()" [style.pointer-events]="pointerEvents">delete</i>
+    <i class="material-icons" (click)="debugButtonClicked()" title="デバッグ">bug_report</i>
+    <i class="material-icons" (click)="refreshButtonClicked()" [style.pointer-events]="pointerEvents" title="再読込">sync</i>
+    <i class="material-icons" (click)="addButtonClicked()" title="行追加">add_circle</i>
+    <i class="material-icons" (click)="hideButtonClicked()" title="行非表示">remove_circle</i>
+    <i class="material-icons" (click)="postButtonClicked()" [style.pointer-events]="pointerEvents" title="更新">done</i>
+    <i class="material-icons" (click)="deleteButtonClicked()" [style.pointer-events]="pointerEvents" title="データ削除">delete</i>
   </div>
 </div>
