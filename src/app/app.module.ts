@@ -6,7 +6,7 @@ import { JsonpModule } from '@angular/http';
 import { AngularSplitModule } from 'angular-split';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DomSanitizer } from '@angular/platform-browser/';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ColoredDirective } from './directive/colored.directive';
 import { MY_ROUTES } from './app.routing';
@@ -67,6 +67,7 @@ import { SubmenuTodoListComponent } from './component/submenu/submenu-todo-list/
     MatInputModule,
     MatSortModule,
     MY_ROUTES,
+    ReactiveFormsModule
   ],
   providers: [ZipcodeService],
   bootstrap: [AppComponent]

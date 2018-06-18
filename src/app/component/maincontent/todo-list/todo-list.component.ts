@@ -10,17 +10,22 @@ import { Validators, FormGroup, FormArray, FormControl, FormBuilder } from '@ang
 })
 export class TodoListComponent implements OnInit {
 
-  private static readonly defaultRowNum: number = 8; // 初期表示する行数
-  private clickedRowindex: number;
-  public rows: TodoList[] = []; // ここに表の中身の値が配列として保持される。
+  private static readonly _defaultRowNum: number = 8; // 初期表示する行数
+  private _clickedRowindex: number;
 
+  // 下記のような入れ子構造になっている。
+  // FormGroup（全部）
+  // └FormArray（やること1,やること2...）
+  //   └FormGroup（id,task_name,description...）
+  //     └FormControl（id）
   public rowsFormGroup: FormGroup = this.fb.group({
-    tasks: this.fb.array([
-    ])
+    tasks: this.fb.array([])
   });
+  public controlOfTasks = <FormArray>this.rowsFormGroup.controls['tasks'];
 
   public pointerEvents: string;
 
+  // FormBuilderはnewなFormGroupやらFormControlやらFormArrayやらを生成し、返してくれるシンタックスシュガー
   constructor(
     private cd: ChangeDetectorRef,
     private fb: FormBuilder,
@@ -28,74 +33,99 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
+    this._clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
     this.initRows();
-    const control = <FormArray>this.rowsFormGroup.controls['tasks'];
-    control.push(this.initNewTask());
   }
 
-  initNewTask(): FormGroup {
+  private clearFormArray(formArray: FormArray) {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0);
+    }
+  }
+
+  private initNewTaskForm(): FormGroup {
     return this.fb.group({
       id: [0],
-      task_name: [''],
+      task_name: ['', Validators.required],
       description: [''],
-      status: ['0'],
+      status: ['0', Validators.required],
       is_deleted: [''],
-      created_at: [''],
-      updated_at: ['']
+      created_at: [{ value: '', disabled: true }],
+      updated_at: [{ value: '', disabled: true }]
     });
+  }
+
+  private getLoadedForm(row: TodoListRow): FormGroup {
+    const task: FormGroup = this.initNewTaskForm();
+    task.controls['id'].setValue(row.id);
+    task.controls['task_name'].setValue(row.task_name);
+    task.controls['description'].setValue(row.description);
+    task.controls['status'].setValue(row.status);
+    task.controls['is_deleted'].setValue(row.is_deleted);
+    task.controls['created_at'].setValue(this.datetimeToYYYYMMdd(row.created_at));
+    task.controls['updated_at'].setValue(this.datetimeToYYYYMMdd(row.updated_at));
+    return task;
   }
 
   private async initRows() {
     this.todolistService.getReqTodoList()
       .subscribe(
         res => {
-          this.rows = [];
+          this.clearFormArray(this.controlOfTasks); // クリア
           const resRowArray: any[] = res; // まず配列に突っ込む
           resRowArray.forEach((resRow) => {
-            this.rows.push(new TodoList(resRow));
+            // ここでFormにもつっこむ
+            this.controlOfTasks.push(this.getLoadedForm(<TodoListRow>resRow));
           });
-          this.addRowsForAppearance(this.rows.length);
+          this.addRowsForAppearance(this.controlOfTasks.length);
           return Promise.resolve();
         },
         err => Promise.reject(err)
       );
   }
 
+  // 引数が指定行未満の場合は空欄行を追加する。
   private addRowsForAppearance(nowLength: number) {
-    // 指定行未満の場合は空欄行を追加する。
-    if (nowLength >= TodoListComponent.defaultRowNum) {
-      // 指定行より大きいなら何もしない。
-      return;
-    }
-    const spaceRowNum: number = TodoListComponent.defaultRowNum - nowLength;
+    if (nowLength < 0) { return; }
+    if (nowLength >= TodoListComponent._defaultRowNum) { return; }
+    const spaceRowNum: number = TodoListComponent._defaultRowNum - nowLength;
     for (let i = 0; i < spaceRowNum; i++) {
-      this.rows.push(TodoList.getBlankRow());
+      this.controlOfTasks.push(this.initNewTaskForm());
     }
+  }
+
+  // MySQLのdatetimeをYYYY/MM/DDに変更する。
+  private datetimeToYYYYMMdd(dt: string): string {
+    if (dt.trim() === '') { return ''; }
+    const YYYY = dt.slice(0, 4);
+    const MM = dt.slice(5, 7);
+    const dd = dt.slice(8, 10);
+    return YYYY + '/' + MM + '/' + dd;
   }
 
   addButtonClicked() {
     if (this.doEditTheLastRow()) {
-      this.rows.push(TodoList.getBlankRow());
+      this.controlOfTasks.push(this.initNewTaskForm());
       return;
     }
-    this.rows.splice(this.clickedRowindex - 1, 0, TodoList.getBlankRow());
+    this.controlOfTasks.insert(this._clickedRowindex - 1, this.initNewTaskForm());
   }
 
   hideButtonClicked() {
     if (this.doEditTheLastRow()) {
-      this.rows.pop();
+      this.controlOfTasks.removeAt(this.controlOfTasks.length);
       return;
     }
-    this.rows.splice(this.clickedRowindex - 1, 1);
+    this.controlOfTasks.removeAt(this._clickedRowindex - 1); // 旧
     this.cd.detectChanges(); // ExpressionChangedAfterItHasBeenCheckedError回避のため
   }
 
   debugButtonClicked() {
-    console.log(this.rows);
-    console.log('clickedRowindex:' + this.clickedRowindex);
-    if (this.rows[this.clickedRowindex - 1] !== undefined) {
-      console.log('clickedtask_name:' + this.rows[this.clickedRowindex - 1].task_name);
+    console.log(this.controlOfTasks);
+    console.log(this.rowsFormGroup.getRawValue());
+    console.log('clickedRowindex:' + this._clickedRowindex);
+    if (this.controlOfTasks[this._clickedRowindex - 1] !== undefined) { // 旧
+      console.log('clickedtask_name:' + this.controlOfTasks[this._clickedRowindex - 1].task_name); // 旧
     }
   }
 
@@ -109,10 +139,10 @@ export class TodoListComponent implements OnInit {
     // style="pointer-events:none;"を一旦付与して、連打クリックをできなくする。
     this.pointerEvents = 'none';
     const sendRows: TodoListRow[] = [];
-    this.rows.forEach(row => {
-      // 適切じゃない行はここではじく
-      if (row.task_name.trim() !== '') {
-        sendRows.push(Object.assign({}, row));
+    this.controlOfTasks.getRawValue().forEach(row => { // 旧
+      // 適切じゃない行はここではじく // 旧
+      if (row.task_name.trim() !== '') { // 旧
+        sendRows.push(Object.assign({}, row)); // 旧
       }
     });
     this.todolistService.postReqTodoList(sendRows)
@@ -129,15 +159,15 @@ export class TodoListComponent implements OnInit {
   }
 
   deleteButtonClicked() {
-    if (this.rows[this.clickedRowindex - 1] === undefined) { return; } // 連続でクリックしたときのための処理
+    if (this.controlOfTasks[this._clickedRowindex - 1].getRawValue() === undefined) { return; } // 連続でクリックしたときのための処理
     this.pointerEvents = 'none';
-    const deleteRowId: string = this.rows[this.clickedRowindex - 1].id + '';
+    const deleteRowId: string = this.controlOfTasks[this._clickedRowindex - 1].getRawValue().id + '';
     this.todolistService.deleteReqTodoList(deleteRowId)
       .subscribe(
         res => {
           console.log(res);
           // 画面の行削除。再読込にすると今のカーソルの行から移動してしまうため。
-          this.rows.splice(this.clickedRowindex - 1, 1);
+          this.controlOfTasks.removeAt(this._clickedRowindex - 1);
           this.cd.detectChanges();
         },
         err => console.error(err),
@@ -146,13 +176,13 @@ export class TodoListComponent implements OnInit {
   }
 
   clickedRowindexUpdate(index: number) {
-    this.clickedRowindex = index;
+    this._clickedRowindex = index;
   }
 
   doEditTheLastRow(): boolean {
-    if (this.clickedRowindex === undefined) {
+    if (this._clickedRowindex === undefined) {
       return true;
-    } else if (this.clickedRowindex >= this.rows.length) {
+    } else if (this._clickedRowindex >= this.controlOfTasks.length) { // 旧
       return true;
     }
     return false;

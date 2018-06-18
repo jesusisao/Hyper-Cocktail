@@ -13,20 +13,20 @@
       </tr>
     </thead>
 
-    <tbody>
-      <ng-container *ngFor="let row of rows">
-        <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)">
+    <tbody [formGroup]="rowsFormGroup">
+      <ng-container *ngFor="let row of controlOfTasks.controls; let i = index" formArrayName="tasks">
+        <tr #tr (click)="clickedRowindexUpdate(tr.rowIndex)" formGroupName="{{i}}">
           <th class='line-no' style="width:60px;">
             <input type=text [value]='tr.rowIndex' style="text-align: center;" disabled>
           </th>
           <td  style="width:250px;">
-            <input type=text [(ngModel)]='row.task_name' required>
+            <input type=text formControlName='task_name'>
           </td>
           <td  style="width:400px;">
-            <input type=text [(ngModel)]='row.description'>
+            <input type=text formControlName='description'>
           </td>
           <td>
-            <select [(ngModel)]='row.status'>
+            <select formControlName='status'>
               <option value="0">未完了</option>
               <option value="1">実行中</option>
               <option value="2">完了</option>
@@ -34,10 +34,10 @@
             <i class="material-icons">keyboard_arrow_down</i>
           </td>
           <td>
-            <input type=text [(ngModel)]='row.created_at' disabled>
+            <input type=text formControlName='created_at'>
           </td>
           <td>
-            <input type=text [(ngModel)]='row.updated_at' disabled>
+            <input type=text formControlName='updated_at'>
           </td>
         </tr>
       </ng-container>
