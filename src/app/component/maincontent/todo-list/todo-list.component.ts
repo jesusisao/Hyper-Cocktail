@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TodoListRow, TodoList } from '@app/class/todolist';
 import { TodolistService } from '@app/service/todolist.service';
+import { Validators, FormGroup, FormArray, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -12,16 +13,37 @@ export class TodoListComponent implements OnInit {
   private static readonly defaultRowNum: number = 8; // 初期表示する行数
   private clickedRowindex: number;
   public rows: TodoList[] = []; // ここに表の中身の値が配列として保持される。
+
+  public rowsFormGroup: FormGroup = this.fb.group({
+    tasks: this.fb.array([
+    ])
+  });
+
   public pointerEvents: string;
 
   constructor(
     private cd: ChangeDetectorRef,
+    private fb: FormBuilder,
     private todolistService: TodolistService
   ) { }
 
   ngOnInit() {
     this.clickedRowindex = undefined; // ここで入れておかないと画面遷移後も値入りっぱなし
     this.initRows();
+    const control = <FormArray>this.rowsFormGroup.controls['tasks'];
+    control.push(this.initNewTask());
+  }
+
+  initNewTask(): FormGroup {
+    return this.fb.group({
+      id: [0],
+      task_name: [''],
+      description: [''],
+      status: ['0'],
+      is_deleted: [''],
+      created_at: [''],
+      updated_at: ['']
+    });
   }
 
   private async initRows() {
