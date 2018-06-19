@@ -113,7 +113,7 @@ export class TodoListComponent implements OnInit {
 
   hideButtonClicked() {
     if (this.doEditTheLastRow()) {
-      this.controlOfTasks.removeAt(this.controlOfTasks.length);
+      this.controlOfTasks.removeAt(this.controlOfTasks.length - 1);
       return;
     }
     this.controlOfTasks.removeAt(this._clickedRowindex - 1);
@@ -124,6 +124,7 @@ export class TodoListComponent implements OnInit {
     console.log(this.controlOfTasks);
     console.log(this.rowsFormGroup.getRawValue());
     console.log('clickedRowindex:' + this._clickedRowindex);
+    console.log('doEditTheLastRow:' + this.doEditTheLastRow());
     if (this.controlOfTasks.value[this._clickedRowindex - 1] !== undefined) {
       console.log('clickedtask_name:' + this.controlOfTasks.value[this._clickedRowindex - 1].task_name);
       console.log('行status:' + this.controlOfTasks.controls[this._clickedRowindex - 1].status);
