@@ -126,7 +126,8 @@ export class TodoListComponent implements OnInit {
     console.log('clickedRowindex:' + this._clickedRowindex);
     if (this.controlOfTasks.value[this._clickedRowindex - 1] !== undefined) {
       console.log('clickedtask_name:' + this.controlOfTasks.value[this._clickedRowindex - 1].task_name);
-      console.log('status:' + this.controlOfTasks.controls[this._clickedRowindex - 1].status);
+      console.log('行status:' + this.controlOfTasks.controls[this._clickedRowindex - 1].status);
+      console.log('全体status:' + this.rowsFormGroup.status);
     }
   }
 
@@ -138,15 +139,14 @@ export class TodoListComponent implements OnInit {
 
   postButtonClicked() {
     // style="pointer-events:none;"を一旦付与して、連打クリックをできなくする。
+    if (this.rowsFormGroup.status === 'INVALID') {
+      console.log('フォームにエラーがあります。');
+      return;
+    }
     this.pointerEvents = 'none';
     const sendRows: TodoListRow[] = [];
-    this.controlOfTasks.getRawValue().forEach(row => {
-      // 適切じゃない行はここではじく
-      if (row.task_name.trim() !== '') {
-        sendRows.push(Object.assign({}, row));
-      }
-    });
-    this.todolistService.postReqTodoList(sendRows)
+
+    this.todolistService.postReqTodoList(this.controlOfTasks.getRawValue())
       .subscribe(
         res => {
           console.log(res);

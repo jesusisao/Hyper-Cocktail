@@ -5,7 +5,7 @@
     <thead>
       <tr class="header">
         <th class='blank' style="width:60px;">行№</th>
-        <th style="width:250px;">タスク名</th>
+        <th class='required' style="width:250px;">タスク名</th>
         <th style="width:400px;">説明</th>
         <th>ステータス</th>
         <th>作成日</th>
@@ -19,10 +19,10 @@
           <th class='line-no' style="width:60px;">
             <input type=text [value]='tr.rowIndex' style="text-align: center;" disabled>
           </th>
-          <td  style="width:250px;">
+          <td style="width:250px;">
             <input type=text formControlName='task_name'>
           </td>
-          <td  style="width:400px;">
+          <td style="width:400px;">
             <input type=text formControlName='description'>
           </td>
           <td>
