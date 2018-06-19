@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TodoListRow, TodoList } from '@app/class/todolist';
 import { TodolistService } from '@app/service/todolist.service';
-import { Validators, FormGroup, FormArray, FormControl, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormArray, FormControl, FormBuilder, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -46,7 +46,7 @@ export class TodoListComponent implements OnInit {
   private initNewTaskForm(): FormGroup {
     return this.fb.group({
       id: [0],
-      task_name: ['', Validators.required],
+      task_name: ['', [Validators.required, Validators.maxLength(50)]],
       description: [''],
       status: ['0', Validators.required],
       is_deleted: [''],
@@ -116,7 +116,7 @@ export class TodoListComponent implements OnInit {
       this.controlOfTasks.removeAt(this.controlOfTasks.length);
       return;
     }
-    this.controlOfTasks.removeAt(this._clickedRowindex - 1); // 旧
+    this.controlOfTasks.removeAt(this._clickedRowindex - 1);
     this.cd.detectChanges(); // ExpressionChangedAfterItHasBeenCheckedError回避のため
   }
 
@@ -124,8 +124,9 @@ export class TodoListComponent implements OnInit {
     console.log(this.controlOfTasks);
     console.log(this.rowsFormGroup.getRawValue());
     console.log('clickedRowindex:' + this._clickedRowindex);
-    if (this.controlOfTasks[this._clickedRowindex - 1] !== undefined) { // 旧
-      console.log('clickedtask_name:' + this.controlOfTasks[this._clickedRowindex - 1].task_name); // 旧
+    if (this.controlOfTasks.value[this._clickedRowindex - 1] !== undefined) {
+      console.log('clickedtask_name:' + this.controlOfTasks.value[this._clickedRowindex - 1].task_name);
+      console.log('status:' + this.controlOfTasks.controls[this._clickedRowindex - 1].status);
     }
   }
 
@@ -139,10 +140,10 @@ export class TodoListComponent implements OnInit {
     // style="pointer-events:none;"を一旦付与して、連打クリックをできなくする。
     this.pointerEvents = 'none';
     const sendRows: TodoListRow[] = [];
-    this.controlOfTasks.getRawValue().forEach(row => { // 旧
-      // 適切じゃない行はここではじく // 旧
-      if (row.task_name.trim() !== '') { // 旧
-        sendRows.push(Object.assign({}, row)); // 旧
+    this.controlOfTasks.getRawValue().forEach(row => {
+      // 適切じゃない行はここではじく
+      if (row.task_name.trim() !== '') {
+        sendRows.push(Object.assign({}, row));
       }
     });
     this.todolistService.postReqTodoList(sendRows)
@@ -159,9 +160,10 @@ export class TodoListComponent implements OnInit {
   }
 
   deleteButtonClicked() {
-    if (this.controlOfTasks[this._clickedRowindex - 1].getRawValue() === undefined) { return; } // 連続でクリックしたときのための処理
+    console.log(this.controlOfTasks);
+    if (this.controlOfTasks.value[this._clickedRowindex - 1] === undefined) { return; } // 連続でクリックしたときのための処理
     this.pointerEvents = 'none';
-    const deleteRowId: string = this.controlOfTasks[this._clickedRowindex - 1].getRawValue().id + '';
+    const deleteRowId: string = this.controlOfTasks.value[this._clickedRowindex - 1].id + '';
     this.todolistService.deleteReqTodoList(deleteRowId)
       .subscribe(
         res => {
